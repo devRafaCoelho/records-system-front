@@ -1,17 +1,29 @@
-import { TextField, styled } from '@mui/material'
+import { TextField, css, styled } from '@mui/material'
 
-export const CustomTextField = styled(TextField)(({ theme }) => ({
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: '#000', // Define a cor de fundo preta
-    color: '#fff' // Define a cor do texto como branco
-  },
-  '& .MuiInputLabel-root': {
-    color: '#fff' // Define a cor do rótulo como branco
-  },
-  '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: '#fff' // Define a cor da borda como branco
-  },
-  '& .MuiIconButton-root': {
-    color: '#fff' // Define a cor do ícone como branco
-  }
-}))
+export const CustomTextField = styled(TextField)`
+  ${({ theme }) => css`
+    && {
+      & .MuiOutlinedInput-root {
+        color: ${theme.palette.grey[700]};
+        &:not(.Mui-focused):hover .MuiOutlinedInput-notchedOutline {
+          border-color: ${theme.palette.grey[800]};
+        }
+      }
+
+      & .MuiInputLabel-root {
+        color: ${theme.palette.grey[700]};
+        &.Mui-focused {
+          color: ${theme.palette.primary.main};
+        }
+      }
+
+      & .MuiOutlinedInput-notchedOutline {
+        border-color: ${theme.palette.grey[700]};
+      }
+
+      & .MuiIconButton-root {
+        color: ${theme.palette.grey[700]};
+      }
+    }
+  `}
+`

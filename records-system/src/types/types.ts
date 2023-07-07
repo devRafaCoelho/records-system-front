@@ -8,3 +8,11 @@ export type UserData = {
   cpf: string
   phone: string
 }
+
+export type RegiterUserData = {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  confirmPassword: string
+}

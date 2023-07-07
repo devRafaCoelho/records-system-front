@@ -2,10 +2,8 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
-import TextField from '@mui/material/TextField'
-import { useTheme } from '@mui/material/styles'
-
 import { useState } from 'react'
+import { CustomTextField } from './styles'
 
 interface Props {
   type: 'password' | 'text' | 'email'
@@ -17,14 +15,13 @@ interface Props {
 
 export default function DefaultTextField({ name, type, label, register, errors }: Props) {
   const [showPassword, setShowPassword] = useState(false)
-  const theme = useTheme()
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
   }
 
   return (
-    <TextField
+    <CustomTextField
       id={name}
       type={showPassword ? 'text' : type}
       label={label}
@@ -33,26 +30,6 @@ export default function DefaultTextField({ name, type, label, register, errors }
       {...register(name)}
       error={!!errors[name]}
       helperText={errors[name] ? errors[name].message : null}
-      sx={{
-        '& .MuiOutlinedInput-root': {
-          color: theme.palette.grey[700],
-          '&:not(.Mui-focused):hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.palette.grey[800]
-          }
-        },
-        '& .MuiInputLabel-root': {
-          color: theme.palette.grey[700],
-          '&.Mui-focused': {
-            color: theme.palette.primary.main
-          }
-        },
-        '& .MuiOutlinedInput-notchedOutline': {
-          borderColor: theme.palette.grey[700]
-        },
-        '& .MuiIconButton-root': {
-          color: theme.palette.grey[700]
-        }
-      }}
       InputProps={{
         endAdornment:
           type === 'password' ? (

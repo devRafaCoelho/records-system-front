@@ -1,13 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Grid, TextField } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import DefaultTextField from '../../components/DefaultTextField'
 import { registerUserSchema } from '../../schemas/userSchemas'
 import { api } from '../../services/api'
 import { FormContainer, MainContainer } from '../../styles/styles'
-import { UserData } from '../../types/types'
-import { CustomTextField } from '../../components/DefaultTextField/styles'
+import { RegiterUserData, UserData } from '../../types/types'
+import { StyledLink, StyledTypography } from './styles'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ export default function Register() {
     handleSubmit,
     formState: { errors }
     // setError
-  } = useForm<UserData>({
+  } = useForm<RegiterUserData>({
     resolver: yupResolver(registerUserSchema),
     defaultValues: {
       firstName: '',
@@ -40,6 +40,10 @@ export default function Register() {
 
   return (
     <MainContainer>
+      <Typography variant="h5" color="grey.200">
+        ADICIONE SEUS DADOS
+      </Typography>
+
       <FormContainer disableGutters maxWidth="xs" onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <Grid item sm={6} xs={12}>
@@ -91,8 +95,18 @@ export default function Register() {
               errors={errors}
             />
           </Grid>
+
+          <Grid item xs={12}>
+            <Button variant="contained">Submit</Button>
+          </Grid>
         </Grid>
       </FormContainer>
+
+      <StyledLink to="/login">
+        <StyledTypography variant="h6" color="grey.700">
+          Já possui uma conta? Faça o Login!
+        </StyledTypography>
+      </StyledLink>
     </MainContainer>
   )
 }
