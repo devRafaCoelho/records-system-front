@@ -7,5 +7,8 @@ export const theme = createTheme({
       light: '#a80844',
       dark: '#6f062d'
     }
+  },
+  typography: {
+    fontFamily: 'Nunito, sans-serif'
   }
 })

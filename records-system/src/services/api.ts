@@ -1,21 +1,21 @@
-import axios from 'axios'
-import { getItem, setItem } from '../utils/storage'
-import { UserData } from '../types/types'
+import axios from 'axios';
+import { getItem, setItem } from '../utils/storage';
+import { RegiterUserData, UserData } from '../types/types';
 
-const URL = 'https://localhost:7172'
+const URL = 'http://localhost:8000';
 
-async function registerUser(user: UserData): Promise<UserData> {
-  const response = await axios.post(`${URL}/user/register`, user)
-  return response.data
+async function registerUser(user: RegiterUserData): Promise<UserData> {
+  const response = await axios.post(`${URL}/user/register`, user);
+  return response.data;
 }
 
 async function loginUser(user: UserData): Promise<UserData> {
-  const response = await axios.post(`${URL}/user/login`, user)
+  const response = await axios.post(`${URL}/user/login`, user);
 
-  const { token } = response.data
-  setItem('token', token)
+  const { token } = response.data;
+  setItem('token', token);
 
-  return response.data
+  return response.data;
 }
 
 async function getUser(): Promise<UserData> {
@@ -23,13 +23,13 @@ async function getUser(): Promise<UserData> {
     headers: {
       Authorization: `Bearer ${getItem('token')}`
     }
-  })
+  });
 
-  return response.data
+  return response.data;
 }
 
 export const api = {
   registerUser,
   loginUser,
   getUser
-}
+};

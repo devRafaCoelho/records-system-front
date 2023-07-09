@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@mui/material'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -17,18 +18,22 @@ function ProtectedRoutes({ redirectTo }: ProtectedRoutesProps) {
   return isAuth ? <Outlet /> : <Navigate to={redirectTo} />
 }
 
+const queryClient = new QueryClient()
+
 export default function MainRoutes() {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <Routes>
-        <Route path="*" element={<Navigate to="/register" />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route element={<ProtectedRoutes redirectTo="/login" />}>
-          <Route path="/home" element={<Home />} />
-        </Route>
-      </Routes>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <Routes>
+          <Route path="*" element={<Navigate to="/register" />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route element={<ProtectedRoutes redirectTo="/login" />}>
+            <Route path="/home" element={<Home />} />
+          </Route>
+        </Routes>
+      </ThemeProvider>
+    </QueryClientProvider>
   )
 }
