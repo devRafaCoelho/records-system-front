@@ -27,6 +27,10 @@ export const CustomTextField = styled(TextField)`
       & .MuiIconButton-root {
         color: ${theme.palette.grey[700]};
       }
+
+      & .MuiTypography-root {
+        color: ${theme.palette.grey[700]};
+      }
     }
   `}
 `;

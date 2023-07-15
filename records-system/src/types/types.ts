@@ -10,9 +10,11 @@ export type UserData = {
 };
 
 export type RegiterUserData = {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  cpf: string;
+  phone: string;
   password: string;
   confirmPassword: string;
 };

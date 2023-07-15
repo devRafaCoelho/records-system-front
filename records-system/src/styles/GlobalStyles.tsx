@@ -1,8 +1,9 @@
-import { Global, css } from '@emotion/react'
-import { useTheme } from '@mui/material/styles'
+import { Global, css } from '@emotion/react';
+import { useTheme } from '@mui/material/styles';
 
 export const GlobalStyles = () => {
-  const theme = useTheme()
+  const theme = useTheme();
+
   const Css = css`
     * {
       margin: 0;
@@ -14,7 +15,7 @@ export const GlobalStyles = () => {
       color: ${theme.palette.common.white};
       background-color: ${theme.palette.common.black};
     }
-  `
+  `;
 
-  return <Global styles={Css} />
-}
+  return <Global styles={Css} />;
+};

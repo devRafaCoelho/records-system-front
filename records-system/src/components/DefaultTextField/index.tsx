@@ -1,24 +1,24 @@
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
-import { useState } from 'react'
-import { CustomTextField } from './styles'
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import { useState } from 'react';
+import { CustomTextField } from './styles';
 
 interface Props {
-  type: 'password' | 'text' | 'email'
-  name: string
-  label: string
-  register: any
-  errors?: any
+  type: 'password' | 'text' | 'email';
+  name: string;
+  label: string;
+  register: any;
+  errors?: any;
 }
 
 export default function DefaultTextField({ name, type, label, register, errors }: Props) {
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
 
   return (
     <CustomTextField
@@ -41,5 +41,5 @@ export default function DefaultTextField({ name, type, label, register, errors }
           ) : null
       }}
     />
-  )
+  );
 }

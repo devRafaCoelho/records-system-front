@@ -8,6 +8,7 @@ import DefaultTextField from '../../components/DefaultTextField';
 import { registerUserSchema } from '../../schemas/userSchemas';
 import { api } from '../../services/api';
 import { RegiterUserData } from '../../types/types';
+import PhoneInput from '../DefaultPhoneTextField';
 
 export default function UserRegisterForm() {
   const navigate = useNavigate();
@@ -20,8 +21,10 @@ export default function UserRegisterForm() {
   } = useForm<RegiterUserData>({
     resolver: yupResolver(registerUserSchema),
     defaultValues: {
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
+      cpf: '',
+      phone: '',
       email: '',
       password: '',
       confirmPassword: ''
@@ -55,6 +58,7 @@ export default function UserRegisterForm() {
   });
 
   async function onSubmit(data: RegiterUserData) {
+    console.log(data);
     mutate(data);
   }
 
@@ -63,9 +67,9 @@ export default function UserRegisterForm() {
       <Grid container spacing={2}>
         <Grid item sm={6} xs={12}>
           <DefaultTextField
-            name="firstname"
+            name="firstName"
             type="text"
-            label="Primeiro Name"
+            label="Primeiro Name*"
             register={register}
             errors={errors}
           />
@@ -73,9 +77,9 @@ export default function UserRegisterForm() {
 
         <Grid item sm={6} xs={12}>
           <DefaultTextField
-            name="lastname"
+            name="lastName"
             type="text"
-            label="Último Name"
+            label="Último Name*"
             register={register}
             errors={errors}
           />
@@ -85,7 +89,7 @@ export default function UserRegisterForm() {
           <DefaultTextField
             name="email"
             type="email"
-            label="E-mail"
+            label="E-mail*"
             register={register}
             errors={errors}
           />
@@ -93,9 +97,23 @@ export default function UserRegisterForm() {
 
         <Grid item xs={12}>
           <DefaultTextField
+            name="cpf"
+            type="text"
+            label="CPF"
+            register={register}
+            errors={errors}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <PhoneInput name="phone" label="Telefone" register={register} errors={errors} />
+        </Grid>
+
+        <Grid item xs={12}>
+          <DefaultTextField
             name="password"
             type="password"
-            label="Senha"
+            label="Senha*"
             register={register}
             errors={errors}
           />
@@ -105,7 +123,7 @@ export default function UserRegisterForm() {
           <DefaultTextField
             name="confirmPassword"
             type="password"
-            label="Confirmar Senha"
+            label="Confirmar Senha*"
             register={register}
             errors={errors}
           />
