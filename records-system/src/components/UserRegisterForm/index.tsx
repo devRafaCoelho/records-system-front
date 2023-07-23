@@ -37,17 +37,17 @@ export default function UserRegisterForm() {
       navigate('/login');
     },
     onError: (error: AxiosError<any>) => {
-      if ((error as any).response.data?.error) {
-        const errorData = Object.getOwnPropertyNames((error as any).response.data?.error)
-          .filter((key) => key as keyof RegiterUserData)
-          .map((key) => key as keyof RegiterUserData);
+      const responseData = error?.response?.data;
 
-        errorData.map((elementData) => {
+      if (responseData?.error) {
+        const errorData = Object.keys(responseData.error) as Array<keyof RegiterUserData>;
+
+        errorData.forEach((elementData) => {
           setError(
             elementData,
             {
               type: 'manual',
-              message: (error as any).response.data?.error[elementData]
+              message: responseData.error[elementData]
             },
             {
               shouldFocus: true
