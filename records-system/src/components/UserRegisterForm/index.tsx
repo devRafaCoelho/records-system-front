@@ -4,12 +4,12 @@ import { AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { UserSchema } from '../../schemas/UserSchema';
 import { api } from '../../services/api';
 import { RegiterUserData } from '../../types/types';
+import CPFInput from '../CPFInput.tsx';
 import Input from '../Input';
 import PhoneInput from '../PhoneInput';
-import { UserSchema } from '../../schemas/UserSchema';
-import CPFInput from '../CPFInput.tsx';
 
 export default function UserRegisterForm() {
   const navigate = useNavigate();

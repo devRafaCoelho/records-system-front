@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getItem, setItem } from '../utils/storage';
-import { RegiterUserData, UserData } from '../types/types';
+import { LoginData, RegiterUserData, UserData } from '../types/types';
 
 const URL = 'http://localhost:8000';
 
@@ -9,7 +9,7 @@ async function registerUser(user: RegiterUserData): Promise<UserData> {
   return response.data;
 }
 
-async function loginUser(user: UserData): Promise<UserData> {
+async function loginUser(user: LoginData): Promise<UserData> {
   const response = await axios.post(`${URL}/user/login`, user);
 
   const { token } = response.data;

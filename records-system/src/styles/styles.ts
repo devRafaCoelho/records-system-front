@@ -1,4 +1,5 @@
-import { Container, TextField, css, styled } from '@mui/material';
+import { Container, TextField, Typography, css, styled } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export const FormContainer = styled(Container)`
   min-height: 100vh;
@@ -8,6 +9,21 @@ export const FormContainer = styled(Container)`
   justify-content: center;
   text-align: center;
   gap: 4vh;
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+export const StyledTypography = styled(Typography)`
+  ${({ theme }) => css`
+    transition: 0.4s all ease-in-out;
+
+    &:hover {
+      transition: 0.4s all ease-in-out;
+      color: ${theme.palette.grey[200]};
+    }
+  `}
 `;
 
 export const CustomTextField = styled(TextField)`
