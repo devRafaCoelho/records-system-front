@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const registerUserSchema = yup.object().shape({
+export const UserSchema = yup.object().shape({
   firstName: yup.string().required('Este campo deve ser preenchido'),
   lastName: yup.string().required('Este campo deve ser preenchido'),
   email: yup.string().required('Este campo deve ser preenchido'),

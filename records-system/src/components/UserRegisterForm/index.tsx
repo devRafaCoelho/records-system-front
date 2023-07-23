@@ -4,11 +4,12 @@ import { AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import DefaultTextField from '../../components/DefaultTextField';
-import { registerUserSchema } from '../../schemas/userSchemas';
 import { api } from '../../services/api';
 import { RegiterUserData } from '../../types/types';
-import PhoneInput from '../DefaultPhoneTextField';
+import Input from '../Input';
+import PhoneInput from '../PhoneInput';
+import { UserSchema } from '../../schemas/UserSchema';
+import CPFInput from '../CPFInput.tsx';
 
 export default function UserRegisterForm() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function UserRegisterForm() {
     formState: { errors },
     setError
   } = useForm<RegiterUserData>({
-    resolver: yupResolver(registerUserSchema),
+    resolver: yupResolver(UserSchema),
     defaultValues: {
       firstName: '',
       lastName: '',
@@ -58,7 +59,8 @@ export default function UserRegisterForm() {
   });
 
   async function onSubmit(data: RegiterUserData) {
-    console.log(data);
+    data.cpf = data.cpf?.replace(/\D/g, '');
+    data.phone = data.phone?.replace(/[^+\d]/g, '');
     mutate(data);
   }
 
@@ -66,43 +68,31 @@ export default function UserRegisterForm() {
     <Container component="form" maxWidth="sm" onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
         <Grid item sm={6} xs={12}>
-          <DefaultTextField
+          <Input
             name="firstName"
             type="text"
-            label="Primeiro Name*"
+            label="Primeiro Nome*"
             register={register}
             errors={errors}
           />
         </Grid>
 
         <Grid item sm={6} xs={12}>
-          <DefaultTextField
+          <Input
             name="lastName"
             type="text"
-            label="Último Name*"
+            label="Último Nome*"
             register={register}
             errors={errors}
           />
         </Grid>
 
         <Grid item xs={12}>
-          <DefaultTextField
-            name="email"
-            type="email"
-            label="E-mail*"
-            register={register}
-            errors={errors}
-          />
+          <Input name="email" type="email" label="E-mail*" register={register} errors={errors} />
         </Grid>
 
         <Grid item xs={12}>
-          <DefaultTextField
-            name="cpf"
-            type="text"
-            label="CPF"
-            register={register}
-            errors={errors}
-          />
+          <CPFInput name="cpf" label="CPF" register={register} errors={errors} />
         </Grid>
 
         <Grid item xs={12}>
@@ -110,7 +100,7 @@ export default function UserRegisterForm() {
         </Grid>
 
         <Grid item xs={12}>
-          <DefaultTextField
+          <Input
             name="password"
             type="password"
             label="Senha*"
@@ -120,7 +110,7 @@ export default function UserRegisterForm() {
         </Grid>
 
         <Grid item xs={12}>
-          <DefaultTextField
+          <Input
             name="confirmPassword"
             type="password"
             label="Confirmar Senha*"
@@ -134,12 +124,6 @@ export default function UserRegisterForm() {
             Confirmar Dados
           </Button>
         </Grid>
-
-        {/* <Grid item xs={12}>
-        <LoadingButton loading variant="contained" size="large">
-          Confirmar Dados
-        </LoadingButton>
-      </Grid> */}
       </Grid>
     </Container>
   );

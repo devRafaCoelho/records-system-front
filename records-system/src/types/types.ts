@@ -13,8 +13,8 @@ export type RegiterUserData = {
   firstName: string;
   lastName: string;
   email: string;
-  cpf: string;
-  phone: string;
+  cpf: string | undefined;
+  phone: string | undefined;
   password: string;
   confirmPassword: string;
 };

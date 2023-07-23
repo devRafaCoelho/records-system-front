@@ -3,17 +3,17 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useState } from 'react';
-import { CustomTextField } from './styles';
+import { CustomTextField } from '../../styles/styles';
 
-interface Props {
+type Props = {
   type: 'password' | 'text' | 'email';
   name: string;
   label: string;
   register: any;
   errors?: any;
-}
+};
 
-export default function DefaultTextField({ name, type, label, register, errors }: Props) {
+export default function Input({ name, type, label, register, errors }: Props) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
