@@ -4,6 +4,7 @@ import { AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '../../hooks/useToast.ts';
 import { UserSchema } from '../../schemas/UserSchema';
 import { api } from '../../services/api';
 import { RegiterUserData } from '../../types/types';
@@ -32,9 +33,16 @@ export default function UserRegisterForm() {
     }
   });
 
+  const { toastfy } = useToast();
+
   const { mutate } = useMutation(api.registerUser, {
     onSuccess: () => {
       navigate('/login');
+
+      toastfy({
+        type: 'success',
+        message: 'Dados cadastrados com sucesso!'
+      });
     },
     onError: (error: AxiosError<any>) => {
       const responseData = error?.response?.data;

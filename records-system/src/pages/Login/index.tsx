@@ -11,7 +11,7 @@ export default function Login() {
 
       <LoginForm />
 
-      <StyledLink to="/login">
+      <StyledLink to="/userRegister">
         <StyledTypography variant="body1" color="grey.700">
           Ainda não possui uma conta? Cadastre-se!
         </StyledTypography>
