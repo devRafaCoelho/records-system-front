@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { getItem, setItem } from '../utils/storage';
 import { LoginData, RegiterUserData, UserData } from '../types/types';
+import { getItem, setItem } from '../utils/storage';
 
 const URL = 'http://localhost:8000';
 
@@ -19,7 +19,7 @@ async function loginUser(user: LoginData): Promise<UserData> {
 }
 
 async function getUser(): Promise<UserData> {
-  const response = await axios.get(`${URL}/user`, {
+  const response = await axios.get(`${URL}/user/data`, {
     headers: {
       Authorization: `Bearer ${getItem('token')}`
     }

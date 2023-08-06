@@ -1,10 +1,10 @@
 import PrimarySearchAppBar from '../../components/Header';
 
-export default function Home() {
+export default function Clients() {
   return (
     <>
       <PrimarySearchAppBar />
-      <h1>HOME</h1>
+      <h1>CLIENTS</h1>
     </>
   );
 }

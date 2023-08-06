@@ -7,6 +7,8 @@ import Register from './pages/Register';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { getTheme } from './theme/theme';
 import { getItem } from './utils/storage';
+import Clients from './pages/Clients';
+import Records from './pages/Records';
 
 type ProtectedRoutesProps = {
   redirectTo: string;
@@ -33,6 +35,8 @@ export default function MainRoutes() {
           <Route path="/login" element={<Login />} />
           <Route element={<ProtectedRoutes redirectTo="/login" />}>
             <Route path="/home" element={<Home />} />
+            <Route path="/clients" element={<Clients />} />
+            <Route path="/records" element={<Records />} />
           </Route>
         </Routes>
       </ThemeProvider>
