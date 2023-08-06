@@ -12,9 +12,8 @@ async function registerUser(user: RegiterUserData): Promise<UserData> {
 async function loginUser(user: LoginData): Promise<UserData> {
   const response = await axios.post(`${URL}/user/login`, user);
 
-  const { token, expiresIn } = response.data;
+  const { token } = response.data;
   setItem('token', token);
-  setItem('expiresIn', expiresIn);
 
   return response.data;
 }

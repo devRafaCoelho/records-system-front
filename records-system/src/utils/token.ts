@@ -1,13 +1,22 @@
 import { getItem } from './storage';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
+
+type DecodedToken = JwtPayload | undefined;
 
 export function checkValidToken() {
-  const expiresInString = getItem('expiresIn');
-  const expiresIn = parseInt(expiresInString ?? '0', 10); // Usando o valor padrão '0' se expiresInString for null
+  const token = getItem('token');
 
-  const currentDate = Date.now().toString();
-  const numberCurrentDate = parseInt(currentDate.substring(0, 10));
+  if (token) {
+    const decoded: DecodedToken = jwt_decode(token);
+    const expiresIn = decoded?.exp;
 
-  const isTokenExpired = numberCurrentDate > expiresIn;
+    if (expiresIn === undefined) return false;
 
-  return isTokenExpired ? true : false;
+    const currentDate = Date.now() / 1000;
+    const isTokenExpired = currentDate > expiresIn;
+
+    return isTokenExpired;
+  }
+
+  return false;
 }

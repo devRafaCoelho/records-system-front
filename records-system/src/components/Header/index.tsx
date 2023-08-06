@@ -1,7 +1,7 @@
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
-import MoreIcon from '@mui/icons-material/MoreVert';
+import MenuIcon from '@mui/icons-material/Menu';
 import PeopleIcon from '@mui/icons-material/People';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,21 +13,25 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import useAppContext from '../../hooks/useAppContext';
+import { useToast } from '../../hooks/useToast';
 import { api } from '../../services/api';
 import { logOut } from '../../utils/storage';
-import { CustomAvatar, Search, SearchIconWrapper, StyledInputBase } from './styles';
 import { checkValidToken } from '../../utils/token';
-import { useToast } from '../../hooks/useToast';
+import { ColorIcon, CustomAvatar, Search, SearchIconWrapper, StyledInputBase } from './styles';
 
 export default function PrimarySearchAppBar() {
   const { data } = useQuery('user-data', api.getUser);
   const { setUserData } = useAppContext();
   const { toastfy } = useToast();
   const navigate = useNavigate();
+  const [statusHome, setStatusHome] = useState(location.pathname === '/home');
+  const [statusClients, setStatusClients] = useState(location.pathname === '/clients');
+  const [statusRecords, setStatusRecords] = useState(location.pathname === '/records');
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -50,7 +54,7 @@ export default function PrimarySearchAppBar() {
             message: 'Sessão expirada!'
           });
         }
-      }, 10000);
+      }, 300000);
     }
 
     return () => {
@@ -183,15 +187,15 @@ export default function PrimarySearchAppBar() {
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" color="inherit" onClick={() => navigate('/records')}>
-              <RequestPageIcon />
+              <ColorIcon as={RequestPageIcon} status={statusRecords} />
             </IconButton>
 
             <IconButton size="large" color="inherit" onClick={() => navigate('/clients')}>
-              <PeopleIcon />
+              <ColorIcon as={PeopleIcon} status={statusClients} />
             </IconButton>
 
             <IconButton size="large" color="inherit" onClick={() => navigate('/home')}>
-              <HomeIcon />
+              <ColorIcon as={HomeIcon} status={statusHome} />
             </IconButton>
 
             <IconButton
@@ -221,7 +225,7 @@ export default function PrimarySearchAppBar() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              <MenuIcon />
             </IconButton>
           </Box>
         </Toolbar>

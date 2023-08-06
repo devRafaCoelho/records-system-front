@@ -1,4 +1,5 @@
 import { Avatar, InputBase, alpha, css, styled } from '@mui/material';
+import { SvgIconProps } from '@mui/material/SvgIcon';
 
 export const Search = styled('div')(
   ({ theme }) => css`
@@ -53,5 +54,15 @@ export const StyledInputBase = styled(InputBase)`
 export const CustomAvatar = styled(Avatar)`
   ${({ theme }) => css`
     background-color: ${theme.palette.common.black};
+  `}
+`;
+
+interface ColorIconProps extends SvgIconProps {
+  status: boolean;
+}
+
+export const ColorIcon = styled('svg')<ColorIconProps>`
+  ${({ theme, status }: any) => css`
+    color: ${status ? theme.palette.common.white : theme.palette.grey[300]};
   `}
 `;
