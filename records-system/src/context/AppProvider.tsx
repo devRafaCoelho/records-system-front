@@ -3,6 +3,8 @@ import { createContext, useState } from 'react';
 type AppContextType = {
   userData: any;
   setUserData: (value: any) => void;
+  token: any;
+  setToken: (value: any) => void;
   // openUserForm: boolean
   // setOpenUserForm: (value: boolean) => void
   // openModalLogout: boolean
@@ -21,7 +23,9 @@ type AppContextType = {
 
 export const AppContext = createContext<AppContextType>({
   userData: {},
-  setUserData: () => {}
+  setUserData: () => {},
+  token: {},
+  setToken: () => {}
   // openUserForm: false,
   // setOpenUserForm: () => {},
   // openModalLogout: false,
@@ -40,6 +44,7 @@ export const AppContext = createContext<AppContextType>({
 
 export default function AppProvider({ children }: any) {
   const [userData, setUserData] = useState({});
+  const [token, setToken] = useState({});
   // const [openUserForm, setOpenUserForm] = useState(false)
   // const [openModalLogout, setOpenModalLogout] = useState(false)
   // const [openMovieModal, setOpenMovieModal] = useState(false)
@@ -52,7 +57,9 @@ export default function AppProvider({ children }: any) {
     <AppContext.Provider
       value={{
         userData,
-        setUserData
+        setUserData,
+        token,
+        setToken
         // openUserForm,
         // setOpenUserForm,
         // openModalLogout,

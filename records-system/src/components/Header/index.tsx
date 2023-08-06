@@ -1,11 +1,11 @@
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
-import MailIcon from '@mui/icons-material/Mail';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import PeopleIcon from '@mui/icons-material/People';
+import RequestPageIcon from '@mui/icons-material/RequestPage';
 import SearchIcon from '@mui/icons-material/Search';
 import AppBar from '@mui/material/AppBar';
-import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -15,16 +15,19 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import useAppContext from '../../hooks/useAppContext';
 import { api } from '../../services/api';
+import { logOut } from '../../utils/storage';
 import { CustomAvatar, Search, SearchIconWrapper, StyledInputBase } from './styles';
-import RequestPageIcon from '@mui/icons-material/RequestPage';
-import PeopleIcon from '@mui/icons-material/People';
-import LogoutIcon from '@mui/icons-material/Logout';
+import { checkValidToken } from '../../utils/token';
+import { useToast } from '../../hooks/useToast';
 
 export default function PrimarySearchAppBar() {
   const { data } = useQuery('user-data', api.getUser);
   const { setUserData } = useAppContext();
+  const { toastfy } = useToast();
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -32,6 +35,27 @@ export default function PrimarySearchAppBar() {
 
   useEffect(() => {
     setUserData(data);
+
+    let intervalId: any;
+
+    if (data) {
+      intervalId = setInterval(() => {
+        const isValid = checkValidToken();
+
+        if (isValid) {
+          logOut();
+          navigate('/login');
+          toastfy({
+            type: 'warning',
+            message: 'Sessão expirada!'
+          });
+        }
+      }, 10000);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [data]);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -69,7 +93,14 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>MINHA CONTA</MenuItem>
-      <MenuItem onClick={handleMenuClose}>SAIR</MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate('/login');
+          logOut();
+        }}
+      >
+        SAIR
+      </MenuItem>
     </Menu>
   );
 
@@ -151,15 +182,15 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" color="inherit">
+            <IconButton size="large" color="inherit" onClick={() => navigate('/records')}>
               <RequestPageIcon />
             </IconButton>
 
-            <IconButton size="large" color="inherit">
+            <IconButton size="large" color="inherit" onClick={() => navigate('/clients')}>
               <PeopleIcon />
             </IconButton>
 
-            <IconButton size="large" color="inherit">
+            <IconButton size="large" color="inherit" onClick={() => navigate('/home')}>
               <HomeIcon />
             </IconButton>
 

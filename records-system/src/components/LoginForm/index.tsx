@@ -8,9 +8,11 @@ import { LoginSchema } from '../../schemas/LoginSchema.ts';
 import { api } from '../../services/api.ts';
 import { LoginData } from '../../types/types.ts';
 import Input from '../Input/index.tsx';
+import useAppContext from '../../hooks/useAppContext.ts';
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const { setToken } = useAppContext();
 
   const {
     register,
@@ -26,7 +28,8 @@ export default function LoginForm() {
   });
 
   const { mutate } = useMutation(api.loginUser, {
-    onSuccess: () => {
+    onSuccess: (data: any) => {
+      setToken(data.token);
       navigate('/home');
     },
     onError: (error: AxiosError<any>) => {
