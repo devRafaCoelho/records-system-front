@@ -1,4 +1,4 @@
-import { Container, TextField, Typography, css, styled } from '@mui/material';
+import { Box, Container, TextField, Typography, css, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export const FormContainer = styled(Container)`
@@ -59,4 +59,15 @@ export const CustomTextField = styled(TextField)`
       }
     }
   `}
+`;
+
+export const ContainerModal = styled(Container)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: rgb(18, 18, 18);
+  box-shadow: 24px;
+  padding: 20px;
 `;

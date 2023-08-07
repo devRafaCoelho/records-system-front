@@ -21,6 +21,7 @@ import { useToast } from '../../hooks/useToast';
 import { api } from '../../services/api';
 import { logOut } from '../../utils/storage';
 import { checkValidToken } from '../../utils/token';
+import BasicModal from '../Modal';
 import { ColorIcon, CustomAvatar, Search, SearchIconWrapper, StyledInputBase } from './styles';
 
 export default function PrimarySearchAppBar() {
@@ -28,9 +29,10 @@ export default function PrimarySearchAppBar() {
   const { setUserData } = useAppContext();
   const { toastfy } = useToast();
   const navigate = useNavigate();
-  const [statusHome, setStatusHome] = useState(location.pathname === '/home');
-  const [statusClients, setStatusClients] = useState(location.pathname === '/clients');
-  const [statusRecords, setStatusRecords] = useState(location.pathname === '/records');
+  const [statusHome] = useState(location.pathname === '/home');
+  const [statusClients] = useState(location.pathname === '/clients');
+  const [statusRecords] = useState(location.pathname === '/records');
+  const [open, setOpen] = useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -96,7 +98,16 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>MINHA CONTA</MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          setOpen(!open);
+        }}
+      >
+        MINHA CONTA
+        <BasicModal open={open} setOpen={() => setOpen(!open)} />
+      </MenuItem>
+
       <MenuItem
         onClick={() => {
           navigate('/login');
