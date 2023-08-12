@@ -9,6 +9,7 @@ import { getTheme } from './theme/theme';
 import { getItem } from './utils/storage';
 import Clients from './pages/Clients';
 import Records from './pages/Records';
+import Account from './pages/Account';
 
 type ProtectedRoutesProps = {
   redirectTo: string;
@@ -37,6 +38,7 @@ export default function MainRoutes() {
             <Route path="/home" element={<Home />} />
             <Route path="/clients" element={<Clients />} />
             <Route path="/records" element={<Records />} />
+            <Route path="/account" element={<Account />} />
           </Route>
         </Routes>
       </ThemeProvider>

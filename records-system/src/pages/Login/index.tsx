@@ -1,10 +1,10 @@
 import { Typography } from '@mui/material';
 import LoginForm from '../../components/LoginForm';
-import { FormContainer, StyledLink, StyledTypography } from '../../styles/styles';
+import { MainContainer, StyledLink, StyledTypography } from '../../styles/styles';
 
 export default function Login() {
   return (
-    <FormContainer>
+    <MainContainer>
       <Typography variant="h4" color="grey.200">
         LOGIN
       </Typography>
@@ -16,6 +16,6 @@ export default function Login() {
           Ainda não possui uma conta? Cadastre-se!
         </StyledTypography>
       </StyledLink>
-    </FormContainer>
+    </MainContainer>
   );
 }

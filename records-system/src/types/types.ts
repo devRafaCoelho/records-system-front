@@ -22,6 +22,15 @@ export type LoginData = {
   password: string;
 };
 
+export type UpdateUserData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  cpf: string | undefined;
+  phone: string | undefined;
+  password: string;
+};
+
 export type ToastData = {
   type: string;
   message: string;

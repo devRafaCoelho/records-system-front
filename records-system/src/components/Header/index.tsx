@@ -21,10 +21,9 @@ import { useToast } from '../../hooks/useToast';
 import { api } from '../../services/api';
 import { logOut } from '../../utils/storage';
 import { checkValidToken } from '../../utils/token';
-import BasicModal from '../Modal';
-import { ColorIcon, CustomAvatar, Search, SearchIconWrapper, StyledInputBase } from './styles';
+import { CustomAvatar, CustomBox, Search, SearchIconWrapper, StyledInputBase } from './styles';
 
-export default function PrimarySearchAppBar() {
+export default function Header() {
   const { data } = useQuery('user-data', api.getUser);
   const { setUserData } = useAppContext();
   const { toastfy } = useToast();
@@ -32,7 +31,6 @@ export default function PrimarySearchAppBar() {
   const [statusHome] = useState(location.pathname === '/home');
   const [statusClients] = useState(location.pathname === '/clients');
   const [statusRecords] = useState(location.pathname === '/records');
-  const [open, setOpen] = useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -98,15 +96,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem
-        onClick={() => {
-          handleMenuClose();
-          setOpen(!open);
-        }}
-      >
-        MINHA CONTA
-        <BasicModal open={open} setOpen={() => setOpen(!open)} />
-      </MenuItem>
+      <MenuItem onClick={() => navigate('/account')}>MINHA CONTA</MenuItem>
 
       <MenuItem
         onClick={() => {
@@ -197,17 +187,23 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" color="inherit" onClick={() => navigate('/records')}>
-              <ColorIcon as={RequestPageIcon} status={statusRecords} />
-            </IconButton>
+            <CustomBox status={statusRecords}>
+              <IconButton size="large" color="inherit" onClick={() => navigate('/records')}>
+                <RequestPageIcon />
+              </IconButton>
+            </CustomBox>
 
-            <IconButton size="large" color="inherit" onClick={() => navigate('/clients')}>
-              <ColorIcon as={PeopleIcon} status={statusClients} />
-            </IconButton>
+            <CustomBox status={statusClients}>
+              <IconButton size="large" color="inherit" onClick={() => navigate('/clients')}>
+                <PeopleIcon />
+              </IconButton>
+            </CustomBox>
 
-            <IconButton size="large" color="inherit" onClick={() => navigate('/home')}>
-              <ColorIcon as={HomeIcon} status={statusHome} />
-            </IconButton>
+            <CustomBox status={statusHome}>
+              <IconButton size="large" color="inherit" onClick={() => navigate('/home')}>
+                <HomeIcon />
+              </IconButton>
+            </CustomBox>
 
             <IconButton
               size="large"

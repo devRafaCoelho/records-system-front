@@ -1,18 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Container, Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { AxiosError } from 'axios';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import useAppContext from '../../hooks/useAppContext.ts';
 import { LoginSchema } from '../../schemas/LoginSchema.ts';
 import { api } from '../../services/api.ts';
+import { LoadButton } from '../../styles/styles.ts';
 import { LoginData } from '../../types/types.ts';
 import Input from '../Input/index.tsx';
-import useAppContext from '../../hooks/useAppContext.ts';
 
 export default function LoginForm() {
   const navigate = useNavigate();
   const { setToken } = useAppContext();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -33,6 +36,7 @@ export default function LoginForm() {
       navigate('/home');
     },
     onError: (error: AxiosError<any>) => {
+      setLoading(false);
       const responseData = error?.response?.data;
 
       if (responseData?.error) {
@@ -55,6 +59,7 @@ export default function LoginForm() {
   });
 
   async function onSubmit(data: LoginData) {
+    setLoading(true);
     mutate(data);
   }
 
@@ -76,9 +81,9 @@ export default function LoginForm() {
         </Grid>
 
         <Grid item xs={12}>
-          <Button variant="contained" size="large" type="submit" fullWidth>
-            Entrar
-          </Button>
+          <LoadButton size="large" loading={loading} variant="contained" type="submit" fullWidth>
+            ENTRAR
+          </LoadButton>
         </Grid>
       </Grid>
     </Container>

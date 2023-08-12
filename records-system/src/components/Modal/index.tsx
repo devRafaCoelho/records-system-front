@@ -1,17 +1,19 @@
+import { Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
+import { useState } from 'react';
 import { ContainerModal } from '../../styles/styles';
 
-type ModalData = {
-  open: boolean;
-  setOpen: () => void;
-};
+export default function BasicModal() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-export default function BasicModal({ open, setOpen }: ModalData) {
   return (
-    <div>
-      <Modal open={open} onClose={setOpen}>
-        <ContainerModal></ContainerModal>
+    <>
+      <Typography onClick={handleOpen}>MINHA CONTA</Typography>
+      <Modal open={open} onClose={handleClose}>
+        <ContainerModal maxWidth="sm" disableGutters></ContainerModal>
       </Modal>
-    </div>
+    </>
   );
 }

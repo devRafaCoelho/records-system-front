@@ -1,9 +1,9 @@
-import PrimarySearchAppBar from '../../components/Header';
+import Header from '../../components/Header';
 
 export default function Clients() {
   return (
     <>
-      <PrimarySearchAppBar />
+      <Header />
       <h1>CLIENTS</h1>
     </>
   );
