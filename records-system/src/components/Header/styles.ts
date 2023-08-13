@@ -58,7 +58,7 @@ export const CustomAvatar = styled(Avatar)`
 
 type CustomBoxProps = {
   status: boolean;
-  theme?: any; // You might want to provide a proper type for the theme
+  theme?: any;
 };
 
 export const CustomBox = styled(Box)<CustomBoxProps>`

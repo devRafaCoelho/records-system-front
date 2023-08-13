@@ -13,9 +13,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useAppContext from '../../hooks/useAppContext';
 import { useToast } from '../../hooks/useToast';
 import { api } from '../../services/api';
@@ -28,14 +28,16 @@ export default function Header() {
   const { setUserData } = useAppContext();
   const { toastfy } = useToast();
   const navigate = useNavigate();
-  const [statusHome] = useState(location.pathname === '/home');
-  const [statusClients] = useState(location.pathname === '/clients');
-  const [statusRecords] = useState(location.pathname === '/records');
+  const location = useLocation();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const statusHome = location.pathname === '/home';
+  const statusClients = location.pathname === '/clients';
+  const statusRecords = location.pathname === '/records';
 
   useEffect(() => {
     setUserData(data);

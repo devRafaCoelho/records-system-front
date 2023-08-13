@@ -1,7 +1,8 @@
 import { Typography } from '@mui/material';
+import DeleteModal from '../../components/DeleteModal';
+import Header from '../../components/Header';
 import UserUpdateForm from '../../components/UserUpdateForm';
 import { SecondContainer } from '../../styles/styles';
-import Header from '../../components/Header';
 
 export default function Account() {
   return (
@@ -13,6 +14,8 @@ export default function Account() {
         </Typography>
 
         <UserUpdateForm />
+
+        <DeleteModal />
       </SecondContainer>
     </>
   );

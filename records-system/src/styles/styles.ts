@@ -68,6 +68,10 @@ export const CustomTextField = styled(TextField)`
       & .MuiTypography-root {
         color: ${theme.palette.grey[700]};
       }
+
+      & input:-internal-autofill-selected {
+        background-color: ${theme.palette.grey[700]};
+      }
     }
   `}
 `;
@@ -86,8 +90,20 @@ export const LoadButton = styled(LoadingButton)`
 `;
 
 export const ContainerModal = styled(Container)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  ${({ theme }) => css`
+    padding: ${theme.spacing(2)} 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: ${theme.spacing(2)};
+
+    border-radius: ${theme.shape.borderRadius}px;
+    background-color: ${theme.palette.grey[800]};
+  `}
 `;
