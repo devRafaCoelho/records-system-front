@@ -5,53 +5,23 @@ type AppContextType = {
   setUserData: (value: any) => void;
   token: any;
   setToken: (value: any) => void;
-  // openUserForm: boolean
-  // setOpenUserForm: (value: boolean) => void
-  // openModalLogout: boolean
-  // setOpenModalLogout: (value: boolean) => void
-  // openMovieModal: boolean
-  // setOpenMovieModal: (value: boolean) => void
-  // selectedMovieId: string | null
-  // setSelectedMovieId: (value: string) => void
-  // themeLocalStorage: string
-  // setThemeLocalStorage: (value: string) => void
-  // searchQuery: string
-  // setSearchQuery: (value: string) => void
-  // favorites: any
-  // setFavorites: (value: any) => void
+  valueTab: any;
+  setValueTab: (value: any) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
   userData: {},
   setUserData: () => {},
   token: {},
-  setToken: () => {}
-  // openUserForm: false,
-  // setOpenUserForm: () => {},
-  // openModalLogout: false,
-  // setOpenModalLogout: () => {},
-  // openMovieModal: false,
-  // setOpenMovieModal: () => {},
-  // selectedMovieId: '',
-  // setSelectedMovieId: () => {},
-  // themeLocalStorage: 'light',
-  // setThemeLocalStorage: () => {},
-  // searchQuery: '',
-  // setSearchQuery: () => {},
-  // favorites: [],
-  // setFavorites: () => {}
+  setToken: () => {},
+  valueTab: {},
+  setValueTab: () => {}
 });
 
 export default function AppProvider({ children }: any) {
   const [userData, setUserData] = useState({});
   const [token, setToken] = useState({});
-  // const [openUserForm, setOpenUserForm] = useState(false)
-  // const [openModalLogout, setOpenModalLogout] = useState(false)
-  // const [openMovieModal, setOpenMovieModal] = useState(false)
-  // const [selectedMovieId, setSelectedMovieId] = useState('')
-  // const [themeLocalStorage, setThemeLocalStorage] = useState(getItem('theme') || 'light')
-  // const [searchQuery, setSearchQuery] = useState('')
-  // const [favorites, setFavorites] = useState([])
+  const [valueTab, setValueTab] = useState(0);
 
   return (
     <AppContext.Provider
@@ -59,21 +29,9 @@ export default function AppProvider({ children }: any) {
         userData,
         setUserData,
         token,
-        setToken
-        // openUserForm,
-        // setOpenUserForm,
-        // openModalLogout,
-        // setOpenModalLogout,
-        // openMovieModal,
-        // setOpenMovieModal,
-        // selectedMovieId,
-        // setSelectedMovieId,
-        // themeLocalStorage,
-        // setThemeLocalStorage,
-        // searchQuery,
-        // setSearchQuery,
-        // favorites,
-        // setFavorites
+        setToken,
+        valueTab,
+        setValueTab
       }}
     >
       {children}

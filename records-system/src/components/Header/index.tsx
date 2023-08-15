@@ -15,54 +15,37 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useAppContext from '../../hooks/useAppContext';
-import { useToast } from '../../hooks/useToast';
 import { api } from '../../services/api';
 import { logOut } from '../../utils/storage';
-import { checkValidToken } from '../../utils/token';
-import { CustomAvatar, CustomBox, Search, SearchIconWrapper, StyledInputBase } from './styles';
+import IconLabelTabs from '../Tab';
+import { CustomAvatar, Search, SearchIconWrapper, StyledInputBase } from './styles';
 
 export default function Header() {
   const { data } = useQuery('user-data', api.getUser);
-  const { setUserData } = useAppContext();
-  const { toastfy } = useToast();
+  const { setUserData, valueTab } = useAppContext();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const statusHome = location.pathname === '/home';
-  const statusClients = location.pathname === '/clients';
-  const statusRecords = location.pathname === '/records';
+  const handleNavigation = () => {
+    if (valueTab === 0) {
+      navigate('/records');
+    } else if (valueTab === 1) {
+      navigate('/clients');
+    } else {
+      navigate('/home');
+    }
+  };
 
   useEffect(() => {
     setUserData(data);
-
-    let intervalId: any;
-
-    if (data) {
-      intervalId = setInterval(() => {
-        const isValid = checkValidToken();
-
-        if (isValid) {
-          logOut();
-          navigate('/login');
-          toastfy({
-            type: 'warning',
-            message: 'Sessão expirada!'
-          });
-        }
-      }, 300000);
-    }
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [data]);
+    handleNavigation();
+  }, [valueTab]);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -189,23 +172,7 @@ export default function Header() {
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <CustomBox status={statusRecords}>
-              <IconButton size="large" color="inherit" onClick={() => navigate('/records')}>
-                <RequestPageIcon />
-              </IconButton>
-            </CustomBox>
-
-            <CustomBox status={statusClients}>
-              <IconButton size="large" color="inherit" onClick={() => navigate('/clients')}>
-                <PeopleIcon />
-              </IconButton>
-            </CustomBox>
-
-            <CustomBox status={statusHome}>
-              <IconButton size="large" color="inherit" onClick={() => navigate('/home')}>
-                <HomeIcon />
-              </IconButton>
-            </CustomBox>
+            <IconLabelTabs />
 
             <IconButton
               size="large"
