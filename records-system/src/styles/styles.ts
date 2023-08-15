@@ -1,8 +1,19 @@
 import { Container, TextField, Typography, css, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { LoadingButton } from '@mui/lab';
 
-export const FormContainer = styled(Container)`
+export const MainContainer = styled(Container)`
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 4vh;
+`;
+
+export const SecondContainer = styled(Container)`
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,6 +68,42 @@ export const CustomTextField = styled(TextField)`
       & .MuiTypography-root {
         color: ${theme.palette.grey[700]};
       }
+
+      & input:-internal-autofill-selected {
+        background-color: ${theme.palette.grey[700]};
+      }
     }
+  `}
+`;
+
+export const LoadButton = styled(LoadingButton)`
+  ${({ theme }) => css`
+    &&& {
+      &.Mui-disabled {
+        background-color: ${theme.palette.primary.main};
+      }
+
+      & .MuiCircularProgress-root.MuiCircularProgress-indeterminate.MuiCircularProgress-colorInherit.css-62e83j-MuiCircularProgress-root {
+      color: ${theme.palette.common.white};
+    }
+  `}
+`;
+
+export const ContainerModal = styled(Container)`
+  ${({ theme }) => css`
+    padding: ${theme.spacing(2)} 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: ${theme.spacing(2)};
+
+    border-radius: ${theme.shape.borderRadius}px;
+    background-color: ${theme.palette.grey[800]};
   `}
 `;

@@ -13,54 +13,39 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import useAppContext from '../../hooks/useAppContext';
-import { useToast } from '../../hooks/useToast';
 import { api } from '../../services/api';
 import { logOut } from '../../utils/storage';
-import { checkValidToken } from '../../utils/token';
-import { ColorIcon, CustomAvatar, Search, SearchIconWrapper, StyledInputBase } from './styles';
+import IconLabelTabs from '../Tab';
+import { CustomAvatar, Search, SearchIconWrapper, StyledInputBase } from './styles';
 
-export default function PrimarySearchAppBar() {
+export default function Header() {
   const { data } = useQuery('user-data', api.getUser);
-  const { setUserData } = useAppContext();
-  const { toastfy } = useToast();
+  const { setUserData, valueTab } = useAppContext();
   const navigate = useNavigate();
-  const [statusHome, setStatusHome] = useState(location.pathname === '/home');
-  const [statusClients, setStatusClients] = useState(location.pathname === '/clients');
-  const [statusRecords, setStatusRecords] = useState(location.pathname === '/records');
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const handleNavigation = () => {
+    if (valueTab === 0) {
+      navigate('/records');
+    } else if (valueTab === 1) {
+      navigate('/clients');
+    } else {
+      navigate('/home');
+    }
+  };
+
   useEffect(() => {
     setUserData(data);
-
-    let intervalId: any;
-
-    if (data) {
-      intervalId = setInterval(() => {
-        const isValid = checkValidToken();
-
-        if (isValid) {
-          logOut();
-          navigate('/login');
-          toastfy({
-            type: 'warning',
-            message: 'Sessão expirada!'
-          });
-        }
-      }, 300000);
-    }
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [data]);
+    handleNavigation();
+  }, [valueTab]);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -96,7 +81,8 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>MINHA CONTA</MenuItem>
+      <MenuItem onClick={() => navigate('/account')}>MINHA CONTA</MenuItem>
+
       <MenuItem
         onClick={() => {
           navigate('/login');
@@ -186,17 +172,7 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" color="inherit" onClick={() => navigate('/records')}>
-              <ColorIcon as={RequestPageIcon} status={statusRecords} />
-            </IconButton>
-
-            <IconButton size="large" color="inherit" onClick={() => navigate('/clients')}>
-              <ColorIcon as={PeopleIcon} status={statusClients} />
-            </IconButton>
-
-            <IconButton size="large" color="inherit" onClick={() => navigate('/home')}>
-              <ColorIcon as={HomeIcon} status={statusHome} />
-            </IconButton>
+            <IconLabelTabs />
 
             <IconButton
               size="large"

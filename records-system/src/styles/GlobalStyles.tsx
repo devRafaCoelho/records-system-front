@@ -15,6 +15,14 @@ export const GlobalStyles = () => {
       color: ${theme.palette.common.white};
       background-color: ${theme.palette.common.black};
     }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: ${theme.palette.grey[700]};
+    }
   `;
 
   return <Global styles={Css} />;

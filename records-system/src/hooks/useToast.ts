@@ -7,6 +7,7 @@ export function useToast() {
     switch (type) {
       case 'success':
         toast.success(message, {
+          position: 'bottom-right',
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -18,6 +19,7 @@ export function useToast() {
         break;
       case 'warning':
         toast.warning(message, {
+          position: 'bottom-right',
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,

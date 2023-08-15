@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material';
 import UserRegisterForm from '../../components/UserRegisterForm';
-import { FormContainer } from '../../styles/styles';
+import { MainContainer } from '../../styles/styles';
 import { StyledLink, StyledTypography } from './styles';
 
 export default function Register() {
   return (
-    <FormContainer>
+    <MainContainer>
       <Typography variant="h4" color="grey.200">
         ADICIONE SEUS DADOS
       </Typography>
@@ -17,6 +17,6 @@ export default function Register() {
           Já possui uma conta? Faça o Login!
         </StyledTypography>
       </StyledLink>
-    </FormContainer>
+    </MainContainer>
   );
 }

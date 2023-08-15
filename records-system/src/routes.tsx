@@ -1,29 +1,56 @@
 import { ThemeProvider } from '@mui/material';
+import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
+import { useToast } from './hooks/useToast';
+import Account from './pages/Account';
+import Clients from './pages/Clients';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Records from './pages/Records';
 import Register from './pages/Register';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { getTheme } from './theme/theme';
-import { getItem } from './utils/storage';
-import Clients from './pages/Clients';
-import Records from './pages/Records';
+import { logOut } from './utils/storage';
+import { checkValidToken } from './utils/token';
 
 type ProtectedRoutesProps = {
   redirectTo: string;
 };
 
 function ProtectedRoutes({ redirectTo }: ProtectedRoutesProps) {
-  const isAuth = getItem('token');
+  const isAuth = checkValidToken();
 
-  return isAuth ? <Outlet /> : <Navigate to={redirectTo} />;
+  return !isAuth ? <Outlet /> : <Navigate to={redirectTo} />;
 }
 
 const queryClient = new QueryClient();
 
 export default function MainRoutes() {
+  const { toastfy } = useToast();
+  const navigate = useNavigate();
   const theme = getTheme();
+
+  function tokenRoutine() {
+    const isValid = checkValidToken();
+
+    if (isValid) {
+      logOut();
+      navigate('/login');
+      toastfy({
+        type: 'warning',
+        message: 'Sessão expirada!'
+      });
+    }
+  }
+
+  useEffect(() => {
+    const intervalId = setInterval(tokenRoutine, 300000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -37,6 +64,7 @@ export default function MainRoutes() {
             <Route path="/home" element={<Home />} />
             <Route path="/clients" element={<Clients />} />
             <Route path="/records" element={<Records />} />
+            <Route path="/account" element={<Account />} />
           </Route>
         </Routes>
       </ThemeProvider>

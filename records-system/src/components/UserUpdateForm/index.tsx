@@ -1,50 +1,52 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Container, Grid } from '@mui/material';
 import { AxiosError } from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import useAppContext from '../../hooks/useAppContext.ts';
 import { useToast } from '../../hooks/useToast.ts';
-import { UserSchema } from '../../schemas/UserSchema';
-import { api } from '../../services/api';
+import { UpdateUserSchema } from '../../schemas/UserSchema.ts';
+import { api } from '../../services/api.ts';
 import { LoadButton } from '../../styles/styles.ts';
-import { RegiterUserData } from '../../types/types';
-import CPFInput from '../CPFInput.tsx';
-import Input from '../Input';
+import { UpdateUserData } from '../../types/types.ts';
+import CPFInput from '../CPFInput.tsx/index.tsx';
+import Input from '../Input/index.tsx';
 import PhoneInput from '../PhoneInput/index.tsx';
 
-export default function UserRegisterForm() {
+export default function UserUpdateForm() {
   const navigate = useNavigate();
+  const { userData, setUserData } = useAppContext();
   const [loading, setLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError
-  } = useForm<RegiterUserData>({
-    resolver: yupResolver(UserSchema),
+    setError,
+    setValue
+  } = useForm<UpdateUserData>({
+    resolver: yupResolver(UpdateUserSchema),
     defaultValues: {
       firstName: '',
       lastName: '',
-      cpf: '',
-      phone: '',
+      cpf: '' || undefined,
+      phone: '' || undefined,
       email: '',
-      password: '',
-      confirmPassword: ''
+      password: ''
     }
   });
 
   const { toastfy } = useToast();
 
-  const { mutate } = useMutation(api.registerUser, {
-    onSuccess: () => {
-      navigate('/login');
-
+  const { mutate } = useMutation(api.updateUser, {
+    onSuccess: (data) => {
+      navigate('/home');
+      setUserData(data);
       toastfy({
         type: 'success',
-        message: 'Dados cadastrados com sucesso!'
+        message: 'Dados alterados com sucesso!'
       });
     },
     onError: (error: AxiosError<any>) => {
@@ -52,7 +54,7 @@ export default function UserRegisterForm() {
       const responseData = error?.response?.data;
 
       if (responseData?.error) {
-        const errorData = Object.keys(responseData.error) as Array<keyof RegiterUserData>;
+        const errorData = Object.keys(responseData.error) as Array<keyof UpdateUserData>;
 
         errorData.forEach((elementData) => {
           setError(
@@ -70,12 +72,20 @@ export default function UserRegisterForm() {
     }
   });
 
-  async function onSubmit(data: RegiterUserData) {
+  async function onSubmit(data: UpdateUserData) {
     data.cpf = data.cpf?.replace(/\D/g, '');
     data.phone = data.phone?.replace(/[^+\d]/g, '');
     setLoading(true);
     mutate(data);
   }
+
+  useEffect(() => {
+    setValue('firstName', userData.firstName);
+    setValue('lastName', userData.lastName);
+    setValue('email', userData.email);
+    setValue('cpf', userData?.cpf);
+    setValue('phone', userData?.phone);
+  }, [userData]);
 
   return (
     <Container component="form" maxWidth="sm" onSubmit={handleSubmit(onSubmit)}>
@@ -105,7 +115,13 @@ export default function UserRegisterForm() {
         </Grid>
 
         <Grid item xs={12}>
-          <CPFInput name="cpf" label="CPF" register={register} errors={errors} initialValue="" />
+          <CPFInput
+            name="cpf"
+            label="CPF"
+            register={register}
+            errors={errors}
+            initialValue={userData.cpf}
+          />
         </Grid>
 
         <Grid item xs={12}>
@@ -114,7 +130,7 @@ export default function UserRegisterForm() {
             label="Telefone"
             register={register}
             errors={errors}
-            initialValue=""
+            initialValue={userData.phone}
           />
         </Grid>
 
@@ -129,20 +145,16 @@ export default function UserRegisterForm() {
         </Grid>
 
         <Grid item xs={12}>
-          <Input
-            name="confirmPassword"
-            type="password"
-            label="Confirmar Senha*"
-            register={register}
-            errors={errors}
-          />
-        </Grid>
-
-        <Grid item xs={12}>
           <LoadButton size="large" loading={loading} variant="contained" type="submit" fullWidth>
             CONFIRMAR DADOS
           </LoadButton>
         </Grid>
+
+        {/* <Grid item xs={12}>
+          <Button variant="outlined" size="large" sx={{ marginLeft: 'auto' }}>
+            ENCERRAR CONTA
+          </Button>
+        </Grid> */}
       </Grid>
     </Container>
   );
