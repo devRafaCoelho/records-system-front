@@ -52,20 +52,16 @@ export default function UserRegisterForm() {
       const responseData = error?.response?.data;
 
       if (responseData?.error) {
-        const errorData = Object.keys(responseData.error) as Array<keyof RegiterUserData>;
-
-        errorData.forEach((elementData) => {
-          setError(
-            elementData,
-            {
-              type: 'manual',
-              message: responseData.error[elementData]
-            },
-            {
-              shouldFocus: true
-            }
-          );
-        });
+        setError(
+          responseData.error.type,
+          {
+            type: 'manual',
+            message: responseData.error.message
+          },
+          {
+            shouldFocus: true
+          }
+        );
       }
     }
   });

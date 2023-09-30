@@ -23,9 +23,9 @@ export default function Input({ name, type, label, register, errors }: Props) {
   return (
     <CustomTextField
       id={name}
-      type={showPassword ? 'text' : type}
       label={label}
       variant="outlined"
+      type={showPassword ? 'text' : type}
       fullWidth
       {...register(name)}
       error={!!errors[name]}
