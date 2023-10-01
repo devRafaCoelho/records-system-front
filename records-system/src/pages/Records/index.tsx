@@ -1,10 +1,11 @@
-import Header from '../../components/Header';
+import Header2 from '../../components/Header2';
+import { Typography } from '@mui/material';
 
 export default function Records() {
   return (
     <>
-      <Header />
-      <h1>RECORDS</h1>
+      <Header2 />
+      <Typography variant="h3">RECORDS</Typography>
     </>
   );
 }
