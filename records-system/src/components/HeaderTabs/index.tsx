@@ -14,9 +14,9 @@ export default function IconTabs() {
 
   return (
     <Tabs value={valueTab} onChange={handleChange}>
-      <Tab icon={<RequestPageIcon />} label="COBRANÇAS" />
-      <Tab icon={<PeopleIcon />} label="CLIENTES" />
       <Tab icon={<HomeIcon />} label="HOME" />
+      <Tab icon={<PeopleIcon />} label="CLIENTES" />
+      <Tab icon={<RequestPageIcon />} label="COBRANÇAS" />
     </Tabs>
   );
 }

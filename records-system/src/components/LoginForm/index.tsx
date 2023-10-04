@@ -15,7 +15,7 @@ import { useToast } from '../../hooks/useToast.ts';
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const { setToken } = useAppContext();
+  const { setToken, setValueTab } = useAppContext();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -65,6 +65,7 @@ export default function LoginForm() {
   async function onSubmit(data: LoginData) {
     setLoading(true);
     mutate(data);
+    setValueTab(0);
   }
 
   return (

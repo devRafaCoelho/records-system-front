@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import DeleteModal from '../../components/DeleteModal';
-import Header2 from '../../components/Header2';
+import Header2 from '../../components/Header';
 import UserUpdateForm from '../../components/UserUpdateForm';
 import { SecondContainer } from '../../styles/styles';
 import CenteredTabs from '../../components/AccountTabs';
