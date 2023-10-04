@@ -1,4 +1,3 @@
-import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import useAppContext from '../../hooks/useAppContext';
 import { api } from '../../services/api';
 import { logOut } from '../../utils/storage';
-import IconLabelTabs from '../Tab';
+import IconTabs from '../HeaderTabs';
 import { CustomAvatar } from './styles';
 
 const pages = ['Home', 'Clientes', 'Cobranças'];
@@ -105,7 +104,7 @@ function ResponsiveAppBar() {
               cursor: 'pointer'
             }}
           >
-            rec SYSTEM
+            S Y S T E M
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -165,7 +164,7 @@ function ResponsiveAppBar() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <IconLabelTabs />
+            <IconTabs />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

@@ -83,7 +83,7 @@ export const CustomTextField = styled(TextField)`
       }
 
       & .MuiOutlinedInput-root {
-        color: ${theme.palette.grey[700]};
+        color: ${theme.palette.common.white};
         border-color: ${theme.palette.grey[700]};
 
         &:not(.Mui-focused):hover .MuiOutlinedInput-notchedOutline {

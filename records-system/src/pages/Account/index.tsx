@@ -3,6 +3,7 @@ import DeleteModal from '../../components/DeleteModal';
 import Header2 from '../../components/Header2';
 import UserUpdateForm from '../../components/UserUpdateForm';
 import { SecondContainer } from '../../styles/styles';
+import CenteredTabs from '../../components/AccountTabs';
 
 export default function Account() {
   return (
@@ -13,9 +14,11 @@ export default function Account() {
           GERENCIE SEUS DADOS
         </Typography>
 
-        <UserUpdateForm />
+        <CenteredTabs />
 
-        <DeleteModal />
+        {/* <UserUpdateForm /> */}
+
+        {/* <DeleteModal /> */}
       </SecondContainer>
     </>
   );

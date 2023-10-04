@@ -75,7 +75,7 @@ export default function UserRegisterForm() {
 
   return (
     <Container component="form" maxWidth="sm" onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item sm={6} xs={12}>
           <Input
             name="firstName"

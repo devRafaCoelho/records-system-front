@@ -1,9 +1,9 @@
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { TextField } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useState } from 'react';
-import { CustomTextField } from '../../styles/styles';
 
 type Props = {
   type: 'password' | 'text' | 'email';
@@ -21,7 +21,7 @@ export default function Input({ name, type, label, register, errors }: Props) {
   };
 
   return (
-    <CustomTextField
+    <TextField
       id={name}
       label={label}
       variant="outlined"

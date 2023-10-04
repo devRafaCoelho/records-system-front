@@ -1,7 +1,7 @@
-import { CustomTextField } from '../../styles/styles';
+import { TextField } from '@mui/material';
+import { useState } from 'react';
 import InputMask from 'react-input-mask';
 import useAppContext from '../../hooks/useAppContext';
-import { useState } from 'react';
 
 type Props = {
   name: string;
@@ -32,7 +32,7 @@ export default function CPFInput({ name, label, register, errors, initialValue }
   };
 
   return (
-    <CustomTextField
+    <TextField
       id={name}
       label={label}
       variant="outlined"

@@ -21,10 +21,11 @@ export function getTheme() {
 
   return createTheme({
     palette: {
+      mode: 'dark',
       primary: {
         main: '#e00b5a',
-        light: '#a80844',
-        dark: '#6f062d'
+        light: '#F5A8D0',
+        dark: '#75003B'
       }
     },
     typography: {

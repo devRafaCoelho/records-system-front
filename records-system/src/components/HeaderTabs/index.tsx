@@ -1,12 +1,11 @@
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
-import { Tab } from '@mui/material';
+import { Tab, Tabs } from '@mui/material';
 import * as React from 'react';
 import useAppContext from '../../hooks/useAppContext';
-import { CustomTabs } from './styles';
 
-export default function IconLabelTabs() {
+export default function IconTabs() {
   const { valueTab, setValueTab } = useAppContext();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -14,10 +13,10 @@ export default function IconLabelTabs() {
   };
 
   return (
-    <CustomTabs value={valueTab} onChange={handleChange} textColor="inherit">
+    <Tabs value={valueTab} onChange={handleChange}>
       <Tab icon={<RequestPageIcon />} label="COBRANÇAS" />
       <Tab icon={<PeopleIcon />} label="CLIENTES" />
       <Tab icon={<HomeIcon />} label="HOME" />
-    </CustomTabs>
+    </Tabs>
   );
 }

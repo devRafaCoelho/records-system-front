@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import useAppContext from '../../hooks/useAppContext';
 import { api } from '../../services/api';
 import { logOut } from '../../utils/storage';
-import IconLabelTabs from '../Tab';
+import IconLabelTabs from '../HeaderTabs';
 import { CustomAvatar, Search, SearchIconWrapper, StyledInputBase } from './styles';
 
 export default function Header() {
