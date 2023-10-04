@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Container, Typography, TextField, css, styled } from '@mui/material';
+import { Container, TextField, css, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export const MainContainer = styled(Container)`
@@ -23,16 +23,14 @@ export const SecondContainer = styled(Container)`
 `;
 
 export const StyledLink = styled(Link)`
-  text-decoration: none;
-`;
-
-export const StyledTypography = styled(Typography)`
   ${({ theme }) => css`
-    transition: 0.4s all ease-in-out;
+    color: ${theme.palette.primary.main};
+    text-decoration: none;
+    transition: 0.2s all ease-in-out;
 
     &:hover {
       transition: 0.4s all ease-in-out;
-      color: ${theme.palette.grey[200]};
+      color: ${theme.palette.primary.dark};
     }
   `}
 `;

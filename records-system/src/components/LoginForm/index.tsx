@@ -69,7 +69,7 @@ export default function LoginForm() {
 
   return (
     <Container component="form" maxWidth="sm" onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <Input name="email" type="email" label="E-mail*" register={register} errors={errors} />
         </Grid>

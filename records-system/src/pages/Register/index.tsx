@@ -1,7 +1,6 @@
 import { Typography } from '@mui/material';
 import UserRegisterForm from '../../components/UserRegisterForm';
-import { MainContainer } from '../../styles/styles';
-import { StyledLink } from './styles';
+import { MainContainer, StyledLink } from '../../styles/styles';
 
 export default function Register() {
   return (
@@ -11,7 +10,7 @@ export default function Register() {
       <UserRegisterForm />
 
       <Typography variant="h6">
-        Já possui uma conta? Faça seu <StyledLink to="/login">Login</StyledLink>
+        Já possui uma conta? Faça seu <StyledLink to="/login">Login!</StyledLink>
       </Typography>
     </MainContainer>
   );
