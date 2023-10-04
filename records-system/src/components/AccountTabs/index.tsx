@@ -1,19 +1,19 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import * as React from 'react';
+import useAppContext from '../../hooks/useAppContext';
 
 export default function CenteredTabs() {
-  const [value, setValue] = React.useState(0);
+  const { valueAccountTab, setValueAccountTab } = useAppContext();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setValueAccountTab(newValue);
   };
 
   return (
-    <Tabs value={value} onChange={handleChange} centered indicatorColor="secondary">
-      <Tab label="Item One" />
-      <Tab label="Item Two" />
+    <Tabs value={valueAccountTab} onChange={handleChange} centered>
+      <Tab label="Dados Pessoais" />
+      <Tab label="Segurança" />
     </Tabs>
   );
 }

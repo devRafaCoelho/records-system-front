@@ -45,14 +45,14 @@ export default function DeleteModal() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{'ENCERRA CONTA?'}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{'ENCERRAR CONTA?'}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Deseja realmente encerrar sua conta?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Não</Button>
+          <Button onClick={handleClose}>Cancelar</Button>
           <Button
             onClick={() => {
               mutate();

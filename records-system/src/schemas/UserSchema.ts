@@ -18,3 +18,9 @@ export const UpdateUserSchema = yup.object().shape({
   phone: yup.string(),
   password: yup.string().required('Este campo deve ser preenchido')
 });
+
+export const NewPasswordSchema = yup.object().shape({
+  password: yup.string().required('Este campo deve ser preenchido'),
+  newPassword: yup.string().required('Este campo deve ser preenchido'),
+  confirmNewPassword: yup.string().required('Este campo deve ser preenchido')
+});

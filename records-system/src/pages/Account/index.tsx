@@ -4,8 +4,12 @@ import Header2 from '../../components/Header';
 import UserUpdateForm from '../../components/UserUpdateForm';
 import { SecondContainer } from '../../styles/styles';
 import CenteredTabs from '../../components/AccountTabs';
+import useAppContext from '../../hooks/useAppContext';
+import NewPasswordForm from '../../components/NewPasswordForm';
 
 export default function Account() {
+  const { valueAccountTab } = useAppContext();
+
   return (
     <>
       <Header2 />
@@ -16,9 +20,9 @@ export default function Account() {
 
         <CenteredTabs />
 
-        {/* <UserUpdateForm /> */}
+        {valueAccountTab === 0 ? <UserUpdateForm /> : <NewPasswordForm />}
 
-        {/* <DeleteModal /> */}
+        <DeleteModal />
       </SecondContainer>
     </>
   );

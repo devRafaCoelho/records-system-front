@@ -1,4 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
+import { Avatar } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -14,11 +15,9 @@ import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import useAppContext from '../../hooks/useAppContext';
 import { api } from '../../services/api';
+import { getTheme } from '../../theme/theme';
 import { logOut } from '../../utils/storage';
 import IconTabs from '../HeaderTabs';
-import { CustomAvatar } from './styles';
-import { Avatar } from '@mui/material';
-import { getTheme } from '../../theme/theme';
 
 const pages = ['Home', 'Clientes', 'Cobranças'];
 const settings = ['Minha Conta', 'Sair'];
