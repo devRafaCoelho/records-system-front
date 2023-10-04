@@ -7,6 +7,31 @@ export function useToast() {
     switch (type) {
       case 'success':
         toast.success(message, {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark'
+        });
+        break;
+      case 'warning':
+        toast.warning(message, {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark'
+        });
+        break;
+      case 'error':
+        toast.error(message, {
+          position: 'bottom-right',
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,

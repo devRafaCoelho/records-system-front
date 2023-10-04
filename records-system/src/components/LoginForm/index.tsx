@@ -1,16 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Container, Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { AxiosError } from 'axios';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import useAppContext from '../../hooks/useAppContext.ts';
 import { LoginSchema } from '../../schemas/LoginSchema.ts';
 import { api } from '../../services/api.ts';
+import { LoadButton } from '../../styles/styles.ts';
 import { LoginData } from '../../types/types.ts';
 import Input from '../Input/index.tsx';
+import { useToast } from '../../hooks/useToast.ts';
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const { setToken, setValueTab } = useAppContext();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -25,39 +31,46 @@ export default function LoginForm() {
     }
   });
 
+  const { toastfy } = useToast();
+
   const { mutate } = useMutation(api.loginUser, {
-    onSuccess: () => {
+    onSuccess: (data: any) => {
+      setToken(data.token);
       navigate('/home');
     },
     onError: (error: AxiosError<any>) => {
-      const responseData = error?.response?.data;
+      setLoading(false);
+      const responseData = error?.response?.data.error;
 
-      if (responseData?.error) {
-        const errorData = Object.keys(responseData.error) as Array<keyof LoginData>;
-
-        errorData.forEach((elementData) => {
-          setError(
-            elementData,
-            {
-              type: 'manual',
-              message: responseData.error[elementData]
-            },
-            {
-              shouldFocus: true
-            }
-          );
+      if (responseData.type === 'data') {
+        toastfy({
+          type: 'error',
+          message: responseData.message
         });
+      } else {
+        setError(
+          responseData.type,
+          {
+            type: 'manual',
+            message: responseData.message
+          },
+          {
+            shouldFocus: true
+          }
+        );
       }
     }
   });
 
   async function onSubmit(data: LoginData) {
+    setLoading(true);
     mutate(data);
+    setValueTab(0);
   }
 
   return (
     <Container component="form" maxWidth="sm" onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <Input name="email" type="email" label="E-mail*" register={register} errors={errors} />
         </Grid>
@@ -73,9 +86,9 @@ export default function LoginForm() {
         </Grid>
 
         <Grid item xs={12}>
-          <Button variant="contained" size="large" type="submit" fullWidth>
-            Entrar
-          </Button>
+          <LoadButton size="large" loading={loading} variant="contained" type="submit" fullWidth>
+            ENTRAR
+          </LoadButton>
         </Grid>
       </Grid>
     </Container>

@@ -3,8 +3,6 @@ export type UserData = {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
-  confirmPassword: string;
   cpf: string;
   phone: string;
 };
@@ -22,6 +20,21 @@ export type RegiterUserData = {
 export type LoginData = {
   email: string;
   password: string;
+};
+
+export type UpdateUserData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  cpf: string | undefined;
+  phone: string | undefined;
+  password: string;
+};
+
+export type NewPasswordData = {
+  password: string;
+  newPassword: string;
+  confirmNewPassword: string;
 };
 
 export type ToastData = {

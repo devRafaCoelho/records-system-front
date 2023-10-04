@@ -1,20 +1,38 @@
-import { CustomTextField } from '../../styles/styles';
+import { TextField } from '@mui/material';
+import { useState } from 'react';
 import InputMask from 'react-input-mask';
+import useAppContext from '../../hooks/useAppContext';
 
 type Props = {
   name: string;
   label: string;
   register: any;
   errors?: any;
+  initialValue?: any;
 };
 
 function CustomInputMaskComponent({ ...props }) {
-  return <InputMask mask="+55 (99) 99999-9999" maskChar={null} {...props} />;
+  return (
+    <InputMask
+      mask="+55 (99) 99999-9999"
+      maskChar={null}
+      value={props.value}
+      onChange={props.onChange}
+      {...props}
+    />
+  );
 }
 
-export default function PhoneInput({ name, label, register, errors }: Props) {
+export default function PhoneInput({ name, label, register, errors, initialValue }: Props) {
+  const { userData } = useAppContext();
+  const [phoneValue, setPhoneValue] = useState(initialValue || userData.phone);
+
+  const handleChange = (event: any) => {
+    setPhoneValue(event.target.value);
+  };
+
   return (
-    <CustomTextField
+    <TextField
       id={name}
       label={label}
       variant="outlined"
@@ -23,7 +41,9 @@ export default function PhoneInput({ name, label, register, errors }: Props) {
       error={!!errors?.[name]}
       helperText={errors?.[name] ? errors[name].message : null}
       InputProps={{
-        inputComponent: CustomInputMaskComponent
+        inputComponent: CustomInputMaskComponent,
+        value: phoneValue,
+        onChange: handleChange
       }}
     />
   );

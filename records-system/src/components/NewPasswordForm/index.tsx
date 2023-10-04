@@ -5,46 +5,42 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import useAppContext from '../../hooks/useAppContext.ts';
 import { useToast } from '../../hooks/useToast.ts';
-import { UserSchema } from '../../schemas/UserSchema';
-import { api } from '../../services/api';
+import { NewPasswordSchema } from '../../schemas/UserSchema.ts';
+import { api } from '../../services/api.ts';
 import { LoadButton } from '../../styles/styles.ts';
-import { RegiterUserData } from '../../types/types';
-import CPFInput from '../CPFInput.tsx';
-import Input from '../Input';
-import PhoneInput from '../PhoneInput/index.tsx';
+import { NewPasswordData } from '../../types/types.ts';
+import Input from '../Input/index.tsx';
 
-export default function UserRegisterForm() {
+export default function NewPasswordForm() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { setValueTab } = useAppContext();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError
-  } = useForm<RegiterUserData>({
-    resolver: yupResolver(UserSchema),
+  } = useForm<NewPasswordData>({
+    resolver: yupResolver(NewPasswordSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      cpf: '',
-      phone: '',
-      email: '',
       password: '',
-      confirmPassword: ''
+      newPassword: '',
+      confirmNewPassword: ''
     }
   });
 
   const { toastfy } = useToast();
 
-  const { mutate } = useMutation(api.registerUser, {
+  const { mutate } = useMutation(api.newPassword, {
     onSuccess: () => {
-      navigate('/login');
-
+      setValueTab(0);
+      navigate('/home');
       toastfy({
         type: 'success',
-        message: 'Dados cadastrados com sucesso!'
+        message: 'Dados alterados com sucesso!'
       });
     },
     onError: (error: AxiosError<any>) => {
@@ -66,9 +62,7 @@ export default function UserRegisterForm() {
     }
   });
 
-  async function onSubmit(data: RegiterUserData) {
-    data.cpf = data.cpf?.replace(/\D/g, '');
-    data.phone = data.phone?.replace(/[^+\d]/g, '');
+  async function onSubmit(data: NewPasswordData) {
     setLoading(true);
     mutate(data);
   }
@@ -76,44 +70,6 @@ export default function UserRegisterForm() {
   return (
     <Container component="form" maxWidth="sm" onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
-        <Grid item sm={6} xs={12}>
-          <Input
-            name="firstName"
-            type="text"
-            label="Primeiro Nome*"
-            register={register}
-            errors={errors}
-          />
-        </Grid>
-
-        <Grid item sm={6} xs={12}>
-          <Input
-            name="lastName"
-            type="text"
-            label="Último Nome*"
-            register={register}
-            errors={errors}
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Input name="email" type="email" label="E-mail*" register={register} errors={errors} />
-        </Grid>
-
-        <Grid item xs={12}>
-          <CPFInput name="cpf" label="CPF" register={register} errors={errors} initialValue="" />
-        </Grid>
-
-        <Grid item xs={12}>
-          <PhoneInput
-            name="phone"
-            label="Telefone"
-            register={register}
-            errors={errors}
-            initialValue=""
-          />
-        </Grid>
-
         <Grid item xs={12}>
           <Input
             name="password"
@@ -126,9 +82,19 @@ export default function UserRegisterForm() {
 
         <Grid item xs={12}>
           <Input
-            name="confirmPassword"
+            name="newPassword"
             type="password"
-            label="Confirmar Senha*"
+            label="Nova Senha*"
+            register={register}
+            errors={errors}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Input
+            name="confirmNewPassword"
+            type="password"
+            label="Confirmar Nova Senha*"
             register={register}
             errors={errors}
           />
