@@ -31,6 +31,12 @@ export type UpdateUserData = {
   password: string;
 };
 
+export type NewPasswordData = {
+  password: string;
+  newPassword: string;
+  confirmNewPassword: string;
+};
+
 export type ToastData = {
   type: string;
   message: string;

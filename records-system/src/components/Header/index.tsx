@@ -1,16 +1,13 @@
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import HomeIcon from '@mui/icons-material/Home';
-import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import PeopleIcon from '@mui/icons-material/People';
-import RequestPageIcon from '@mui/icons-material/RequestPage';
-import SearchIcon from '@mui/icons-material/Search';
+import { Avatar } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useEffect } from 'react';
@@ -18,196 +15,200 @@ import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import useAppContext from '../../hooks/useAppContext';
 import { api } from '../../services/api';
+import { getTheme } from '../../theme/theme';
 import { logOut } from '../../utils/storage';
-import IconLabelTabs from '../Tab';
-import { CustomAvatar, Search, SearchIconWrapper, StyledInputBase } from './styles';
+import IconTabs from '../HeaderTabs';
 
-export default function Header() {
+const pages = ['Home', 'Clientes', 'Cobranças'];
+const settings = ['Minha Conta', 'Sair'];
+
+function ResponsiveAppBar() {
+  const { setUserData, valueTab, setValueTab } = useAppContext();
   const { data } = useQuery('user-data', api.getUser);
-  const { setUserData, valueTab } = useAppContext();
   const navigate = useNavigate();
+  const theme = getTheme();
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-  const handleNavigation = () => {
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleLogOut = () => {
+    navigate('/login');
+    logOut();
+    handleCloseUserMenu;
+  };
+
+  const handleMyAccount = () => {
+    setValueTab(3);
+    navigate('/account');
+    handleCloseUserMenu;
+  };
+
+  const handleNavigationTab = () => {
     if (valueTab === 0) {
-      navigate('/records');
+      navigate('/home');
     } else if (valueTab === 1) {
       navigate('/clients');
+    } else if (valueTab === 2) {
+      navigate('/records');
     } else {
-      navigate('/home');
+      navigate('/account');
     }
+  };
+
+  const handleNavigationMobile = (page: any) => {
+    if (page === 'Home') {
+      setValueTab(0);
+    } else if (page === 'Clientes') {
+      setValueTab(1);
+    } else if (page === 'Cobranças') {
+      setValueTab(2);
+    }
+
+    handleCloseNavMenu();
   };
 
   useEffect(() => {
     setUserData(data);
-    handleNavigation();
+    handleNavigationTab();
   }, [valueTab]);
 
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={() => navigate('/account')}>MINHA CONTA</MenuItem>
-
-      <MenuItem
-        onClick={() => {
-          navigate('/login');
-          logOut();
-        }}
-      >
-        SAIR
-      </MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right'
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" color="inherit">
-          <RequestPageIcon />
-        </IconButton>
-        <p>Cobranças</p>
-      </MenuItem>
-
-      <MenuItem>
-        <IconButton size="large" color="inherit">
-          <PeopleIcon />
-        </IconButton>
-        <p>Clientes</p>
-      </MenuItem>
-
-      <MenuItem>
-        <IconButton size="large" color="inherit">
-          <HomeIcon />
-        </IconButton>
-        <p>Home</p>
-      </MenuItem>
-
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Minha Conta</p>
-      </MenuItem>
-
-      <MenuItem>
-        <IconButton size="large" color="inherit">
-          <LogoutIcon />
-        </IconButton>
-        <p>Sair</p>
-      </MenuItem>
-    </Menu>
-  );
-
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" sx={{ display: { xs: 'none', sm: 'block' } }}>
-            RECORDS SYSTEM
+    <AppBar position="static">
+      <Container maxWidth={false}>
+        <Toolbar disableGutters>
+          <Typography
+            variant="h6"
+            noWrap
+            onClick={() => setValueTab(2)}
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              cursor: 'pointer'
+            }}
+          >
+            L O G O
           </Typography>
 
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
-          </Search>
-
-          <Box sx={{ flexGrow: 1 }} />
-
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconLabelTabs />
-
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
-              edge="end"
               aria-label="account of current user"
-              aria-controls={menuId}
+              aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <CustomAvatar>
-                <Typography variant="h6">
-                  {data?.firstName[0].toUpperCase()}
-                  {data?.lastName[0].toUpperCase()}
-                </Typography>
-              </CustomAvatar>
-            </IconButton>
-          </Box>
-
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
+              onClick={handleOpenNavMenu}
               color="inherit"
             >
               <MenuIcon />
             </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left'
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left'
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' }
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={() => handleNavigationMobile(page)}>
+                  <Typography textAlign="center">{page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+
+          <Typography
+            variant="h5"
+            noWrap
+            onClick={() => setValueTab(2)}
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              cursor: 'pointer'
+            }}
+          >
+            L O G O
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <IconTabs />
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+                  {data?.firstName[0].toUpperCase()}
+                  {data?.lastName[0].toUpperCase()}
+                </Avatar>
+              </IconButton>
+            </Tooltip>
+
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right'
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right'
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem
+                  key={setting}
+                  onClick={setting === 'Sair' ? handleLogOut : handleMyAccount}
+                >
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
+      </Container>
+    </AppBar>
   );
 }
+
+export default ResponsiveAppBar;

@@ -7,6 +7,8 @@ type AppContextType = {
   setToken: (value: any) => void;
   valueTab: any;
   setValueTab: (value: any) => void;
+  valueAccountTab: any;
+  setValueAccountTab: (value: any) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -15,13 +17,16 @@ export const AppContext = createContext<AppContextType>({
   token: {},
   setToken: () => {},
   valueTab: {},
-  setValueTab: () => {}
+  setValueTab: () => {},
+  valueAccountTab: {},
+  setValueAccountTab: () => {}
 });
 
 export default function AppProvider({ children }: any) {
   const [userData, setUserData] = useState({});
   const [token, setToken] = useState({});
   const [valueTab, setValueTab] = useState(0);
+  const [valueAccountTab, setValueAccountTab] = useState(0);
 
   return (
     <AppContext.Provider
@@ -31,7 +36,9 @@ export default function AppProvider({ children }: any) {
         token,
         setToken,
         valueTab,
-        setValueTab
+        setValueTab,
+        valueAccountTab,
+        setValueAccountTab
       }}
     >
       {children}

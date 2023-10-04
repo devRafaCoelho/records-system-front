@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { LoginData, RegiterUserData, UpdateUserData, UserData } from '../types/types';
+import {
+  LoginData,
+  NewPasswordData,
+  RegiterUserData,
+  UpdateUserData,
+  UserData
+} from '../types/types';
 import { getItem, setItem } from '../utils/storage';
 
 const URL = 'http://localhost:8000';
@@ -38,6 +44,16 @@ async function updateUser(user: UpdateUserData): Promise<UserData> {
   return response.data;
 }
 
+async function newPassword(user: NewPasswordData): Promise<UserData> {
+  const response = await axios.put(`${URL}/user/newPassword`, user, {
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
+
+  return response.data;
+}
+
 async function deleteUser(): Promise<UserData> {
   const response = await axios.delete(`${URL}/user`, {
     headers: {
@@ -53,5 +69,6 @@ export const api = {
   loginUser,
   getUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  newPassword
 };

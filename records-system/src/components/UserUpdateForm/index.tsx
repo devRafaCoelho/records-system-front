@@ -17,7 +17,7 @@ import PhoneInput from '../PhoneInput/index.tsx';
 
 export default function UserUpdateForm() {
   const navigate = useNavigate();
-  const { userData, setUserData } = useAppContext();
+  const { userData, setUserData, setValueTab } = useAppContext();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -42,6 +42,7 @@ export default function UserUpdateForm() {
 
   const { mutate } = useMutation(api.updateUser, {
     onSuccess: (data) => {
+      setValueTab(0);
       navigate('/home');
       setUserData(data);
       toastfy({
@@ -54,20 +55,16 @@ export default function UserUpdateForm() {
       const responseData = error?.response?.data;
 
       if (responseData?.error) {
-        const errorData = Object.keys(responseData.error) as Array<keyof UpdateUserData>;
-
-        errorData.forEach((elementData) => {
-          setError(
-            elementData,
-            {
-              type: 'manual',
-              message: responseData.error[elementData]
-            },
-            {
-              shouldFocus: true
-            }
-          );
-        });
+        setError(
+          responseData.error.type,
+          {
+            type: 'manual',
+            message: responseData.error.message
+          },
+          {
+            shouldFocus: true
+          }
+        );
       }
     }
   });
@@ -83,13 +80,13 @@ export default function UserUpdateForm() {
     setValue('firstName', userData.firstName);
     setValue('lastName', userData.lastName);
     setValue('email', userData.email);
-    setValue('cpf', userData?.cpf);
-    setValue('phone', userData?.phone);
+    setValue('cpf', userData.cpf ? userData.cpf : '');
+    setValue('phone', userData.phone ? userData.phone : '');
   }, [userData]);
 
   return (
     <Container component="form" maxWidth="sm" onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item sm={6} xs={12}>
           <Input
             name="firstName"

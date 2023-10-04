@@ -11,10 +11,11 @@ import { api } from '../../services/api.ts';
 import { LoadButton } from '../../styles/styles.ts';
 import { LoginData } from '../../types/types.ts';
 import Input from '../Input/index.tsx';
+import { useToast } from '../../hooks/useToast.ts';
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const { setToken } = useAppContext();
+  const { setToken, setValueTab } = useAppContext();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -30,6 +31,8 @@ export default function LoginForm() {
     }
   });
 
+  const { toastfy } = useToast();
+
   const { mutate } = useMutation(api.loginUser, {
     onSuccess: (data: any) => {
       setToken(data.token);
@@ -37,23 +40,24 @@ export default function LoginForm() {
     },
     onError: (error: AxiosError<any>) => {
       setLoading(false);
-      const responseData = error?.response?.data;
+      const responseData = error?.response?.data.error;
 
-      if (responseData?.error) {
-        const errorData = Object.keys(responseData.error) as Array<keyof LoginData>;
-
-        errorData.forEach((elementData) => {
-          setError(
-            elementData,
-            {
-              type: 'manual',
-              message: responseData.error[elementData]
-            },
-            {
-              shouldFocus: true
-            }
-          );
+      if (responseData.type === 'data') {
+        toastfy({
+          type: 'error',
+          message: responseData.message
         });
+      } else {
+        setError(
+          responseData.type,
+          {
+            type: 'manual',
+            message: responseData.message
+          },
+          {
+            shouldFocus: true
+          }
+        );
       }
     }
   });
@@ -61,11 +65,12 @@ export default function LoginForm() {
   async function onSubmit(data: LoginData) {
     setLoading(true);
     mutate(data);
+    setValueTab(0);
   }
 
   return (
     <Container component="form" maxWidth="sm" onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <Input name="email" type="email" label="E-mail*" register={register} errors={errors} />
         </Grid>
