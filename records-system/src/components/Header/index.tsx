@@ -88,7 +88,7 @@ function ResponsiveAppBar() {
   }, [valueTab]);
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           <Typography
@@ -172,7 +172,9 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+                <Avatar
+                  sx={{ bgcolor: theme.palette.primary.main, color: theme.palette.common.white }}
+                >
                   {data?.firstName[0].toUpperCase()}
                   {data?.lastName[0].toUpperCase()}
                 </Avatar>
