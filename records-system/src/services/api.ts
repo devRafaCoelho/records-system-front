@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  HomeData,
   LoginData,
   NewPasswordData,
   RegiterUserData,
@@ -64,11 +65,22 @@ async function deleteUser(): Promise<UserData> {
   return response.data;
 }
 
+async function getHomeData(): Promise<HomeData> {
+  const response = await axios.get(`${URL}/home`, {
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
+
+  return response.data;
+}
+
 export const api = {
   registerUser,
   loginUser,
   getUser,
   updateUser,
   deleteUser,
-  newPassword
+  newPassword,
+  getHomeData
 };
