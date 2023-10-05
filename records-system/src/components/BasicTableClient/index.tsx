@@ -44,8 +44,8 @@ export default function BasicTableClient({ tableData, text }: any) {
         <TableHead>
           <TableRow>
             <TableCell>Ciente</TableCell>
-            <TableCell align="right">ID</TableCell>
-            <TableCell align="right">CPF</TableCell>
+            <TableCell align="left">ID</TableCell>
+            <TableCell align="left">CPF</TableCell>
           </TableRow>
         </TableHead>
 
@@ -57,10 +57,10 @@ export default function BasicTableClient({ tableData, text }: any) {
                   ? '-'
                   : `${row.firstName} ${row.lastName}`}
               </TableCell>
-              <TableCell align="right" sx={{ color }}>
+              <TableCell align="left" sx={{ color }}>
                 {row.id}
               </TableCell>
-              <TableCell align="right" sx={{ color }}>
+              <TableCell align="left" sx={{ color }}>
                 {row.cpf}
               </TableCell>
             </TableRow>
