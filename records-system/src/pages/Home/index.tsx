@@ -22,7 +22,7 @@ export default function Home() {
       <Container sx={{ marginTop: '30px', marginBottom: '30px' }}>
         <Grid container spacing={3} mb={4}>
           <Grid item md={4} sm={6} xs={12}>
-            <Item sx={{ bgcolor: theme.palette.success.dark }}>
+            <Item type="success">
               <Typography variant="h5" mb={2}>
                 Cobranças Pagas
               </Typography>
@@ -31,7 +31,7 @@ export default function Home() {
           </Grid>
 
           <Grid item md={4} sm={6} xs={12}>
-            <Item sx={{ bgcolor: theme.palette.error.dark }}>
+            <Item type="error">
               <Typography variant="h5" mb={2}>
                 Cobranças Vencidas
               </Typography>
@@ -40,7 +40,7 @@ export default function Home() {
           </Grid>
 
           <Grid item md={4} sm={6} xs={12}>
-            <Item sx={{ bgcolor: theme.palette.warning.dark }}>
+            <Item type="warning">
               <Typography variant="h5" mb={2}>
                 Cobranças Pendentes
               </Typography>
