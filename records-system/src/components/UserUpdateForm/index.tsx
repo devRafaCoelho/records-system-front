@@ -17,7 +17,7 @@ import PhoneInput from '../PhoneInput/index.tsx';
 
 export default function UserUpdateForm() {
   const navigate = useNavigate();
-  const { userData, setUserData, setValueTab } = useAppContext();
+  const { userData, setUserData } = useAppContext();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -42,7 +42,6 @@ export default function UserUpdateForm() {
 
   const { mutate } = useMutation(api.updateUser, {
     onSuccess: (data) => {
-      setValueTab(0);
       navigate('/home');
       setUserData(data);
       toastfy({
@@ -77,12 +76,18 @@ export default function UserUpdateForm() {
   }
 
   useEffect(() => {
-    setValue('firstName', userData.firstName);
-    setValue('lastName', userData.lastName);
-    setValue('email', userData.email);
-    setValue('cpf', userData.cpf ? userData.cpf : '');
-    setValue('phone', userData.phone ? userData.phone : '');
+    if (userData) {
+      setValue('firstName', userData.firstName);
+      setValue('lastName', userData.lastName);
+      setValue('email', userData.email);
+      setValue('cpf', userData.cpf ? userData.cpf : '');
+      setValue('phone', userData.phone ? userData.phone : '');
+    }
   }, [userData]);
+
+  if (!userData) {
+    return null;
+  }
 
   return (
     <Container component="form" maxWidth="sm" onSubmit={handleSubmit(onSubmit)}>

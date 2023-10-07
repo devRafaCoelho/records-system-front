@@ -58,6 +58,13 @@ export type ClientData = {
   status: string;
 };
 
+export type ListClientsData = {
+  totalClients: number;
+  totalPages: number;
+  currentPage: number;
+  clients: ClientData[];
+};
+
 export type RecordData = {
   recordId: number;
   id_clients: string;

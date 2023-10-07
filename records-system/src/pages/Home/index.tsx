@@ -24,7 +24,7 @@ export default function Home() {
           <Grid item md={4} sm={6} xs={12}>
             <Item type="success">
               <Typography variant="h5" mb={2}>
-                Cobranças Pagas
+                Payed Records
               </Typography>
               <Typography variant="h5">{data?.totalValuePayed}</Typography>
             </Item>
@@ -33,7 +33,7 @@ export default function Home() {
           <Grid item md={4} sm={6} xs={12}>
             <Item type="error">
               <Typography variant="h5" mb={2}>
-                Cobranças Vencidas
+                Expired Records
               </Typography>
               <Typography variant="h5">{data?.totalValueExpired}</Typography>
             </Item>
@@ -42,7 +42,7 @@ export default function Home() {
           <Grid item md={4} sm={6} xs={12}>
             <Item type="warning">
               <Typography variant="h5" mb={2}>
-                Cobranças Pendentes
+                Pending Records
               </Typography>
               <Typography variant="h5">{data?.totalValuePending}</Typography>
             </Item>

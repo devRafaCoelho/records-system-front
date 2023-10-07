@@ -9,11 +9,9 @@ import TableFooter from '@mui/material/TableFooter';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { StyledLink } from '../../styles/styles';
-import useAppContext from '../../hooks/useAppContext';
 import { getTheme } from '../../theme/theme';
 
 export default function BasicTableClient({ tableData, text }: any) {
-  const { setValueTab } = useAppContext();
   const theme = getTheme();
 
   const color = theme.palette.grey[400];
@@ -69,7 +67,7 @@ export default function BasicTableClient({ tableData, text }: any) {
 
         <TableFooter>
           <TableCell colSpan={3} align="center">
-            <StyledLink to="/clients" onClick={() => setValueTab(1)}>
+            <StyledLink to="/clients">
               <Typography>Ver todos</Typography>
             </StyledLink>
           </TableCell>
