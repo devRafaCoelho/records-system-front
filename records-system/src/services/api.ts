@@ -76,22 +76,12 @@ async function getHomeData(): Promise<HomeData> {
   return response.data;
 }
 
-async function listClients(page: string, perPage: string): Promise<ListClientsData> {
-  const response = await axios.get(`${URL}/client`, {
-    params: {
-      page: page,
-      perPage: perPage
-    },
-    headers: {
-      Authorization: `Bearer ${getItem('token')}`
-    }
-  });
-
-  return response.data;
-}
-
-// async function listClients(): Promise<ListClientsData> {
+// async function listClients(page: string, perPage: string): Promise<ListClientsData> {
 //   const response = await axios.get(`${URL}/client`, {
+//     params: {
+//       page: page,
+//       perPage: perPage
+//     },
 //     headers: {
 //       Authorization: `Bearer ${getItem('token')}`
 //     }
@@ -99,6 +89,16 @@ async function listClients(page: string, perPage: string): Promise<ListClientsDa
 
 //   return response.data;
 // }
+
+async function listClients(): Promise<ListClientsData> {
+  const response = await axios.get(`${URL}/client`, {
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
+
+  return response.data;
+}
 
 export const api = {
   registerUser,
