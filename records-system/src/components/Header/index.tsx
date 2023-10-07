@@ -17,13 +17,14 @@ import useAppContext from '../../hooks/useAppContext';
 import { api } from '../../services/api';
 import { getTheme } from '../../theme/theme';
 import { logOut } from '../../utils/storage';
-import IconTabs from '../HeaderTabs';
+import LinkTabs from '../HeaderTabs';
 
-const pages = ['Home', 'Clientes', 'Cobranças'];
-const settings = ['Minha Conta', 'Sair'];
+const pages = ['Home', 'Clients', 'Records'];
+const settings = ['My account', 'Log Out'];
+const paths = ['/home', '/clients', '/records'];
 
 function ResponsiveAppBar() {
-  const { setUserData, valueTab, setValueTab } = useAppContext();
+  const { setUserData } = useAppContext();
   const { data } = useQuery('user-data', api.getUser);
   const navigate = useNavigate();
   const theme = getTheme();
@@ -53,48 +54,22 @@ function ResponsiveAppBar() {
   };
 
   const handleMyAccount = () => {
-    setValueTab(3);
     navigate('/account');
     handleCloseUserMenu;
   };
 
-  const handleNavigationTab = () => {
-    if (valueTab === 0) {
-      navigate('/home');
-    } else if (valueTab === 1) {
-      navigate('/clients');
-    } else if (valueTab === 2) {
-      navigate('/records');
-    } else {
-      navigate('/account');
-    }
-  };
-
-  const handleNavigationMobile = (page: any) => {
-    if (page === 'Home') {
-      setValueTab(0);
-    } else if (page === 'Clientes') {
-      setValueTab(1);
-    } else if (page === 'Cobranças') {
-      setValueTab(2);
-    }
-
-    handleCloseNavMenu();
-  };
-
   useEffect(() => {
     setUserData(data);
-    handleNavigationTab();
-  }, [valueTab]);
+  }, [data]);
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" sx={{ width: '100%' }}>
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
-            onClick={() => setValueTab(2)}
+            onClick={() => navigate('/home')}
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -138,8 +113,8 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' }
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={() => handleNavigationMobile(page)}>
+              {pages.map((page, index) => (
+                <MenuItem key={page} onClick={() => navigate(paths[index])}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -149,7 +124,7 @@ function ResponsiveAppBar() {
           <Typography
             variant="h5"
             noWrap
-            onClick={() => setValueTab(2)}
+            onClick={() => navigate('/home')}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -166,7 +141,7 @@ function ResponsiveAppBar() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <IconTabs />
+            <LinkTabs />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -200,7 +175,7 @@ function ResponsiveAppBar() {
               {settings.map((setting) => (
                 <MenuItem
                   key={setting}
-                  onClick={setting === 'Sair' ? handleLogOut : handleMyAccount}
+                  onClick={setting === 'Log Out' ? handleLogOut : handleMyAccount}
                 >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>

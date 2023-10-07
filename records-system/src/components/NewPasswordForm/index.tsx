@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import useAppContext from '../../hooks/useAppContext.ts';
 import { useToast } from '../../hooks/useToast.ts';
 import { NewPasswordSchema } from '../../schemas/UserSchema.ts';
 import { api } from '../../services/api.ts';
@@ -16,7 +15,6 @@ import Input from '../Input/index.tsx';
 export default function NewPasswordForm() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { setValueTab } = useAppContext();
 
   const {
     register,
@@ -36,7 +34,6 @@ export default function NewPasswordForm() {
 
   const { mutate } = useMutation(api.newPassword, {
     onSuccess: () => {
-      setValueTab(0);
       navigate('/home');
       toastfy({
         type: 'success',

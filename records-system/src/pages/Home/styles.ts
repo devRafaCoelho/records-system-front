@@ -1,7 +1,7 @@
 import { Paper, css, styled } from '@mui/material';
 
 interface ItemProps {
-  type: 'success' | 'error' | 'warning'; // Defina os tipos permitidos aqui
+  type: 'success' | 'error' | 'warning';
 }
 
 export const Item = styled(Paper)<ItemProps>`

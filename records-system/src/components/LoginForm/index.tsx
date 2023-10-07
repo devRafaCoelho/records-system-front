@@ -5,17 +5,15 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import useAppContext from '../../hooks/useAppContext.ts';
+import { useToast } from '../../hooks/useToast.ts';
 import { LoginSchema } from '../../schemas/LoginSchema.ts';
 import { api } from '../../services/api.ts';
 import { LoadButton } from '../../styles/styles.ts';
 import { LoginData } from '../../types/types.ts';
 import Input from '../Input/index.tsx';
-import { useToast } from '../../hooks/useToast.ts';
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const { setToken, setValueTab } = useAppContext();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -34,8 +32,7 @@ export default function LoginForm() {
   const { toastfy } = useToast();
 
   const { mutate } = useMutation(api.loginUser, {
-    onSuccess: (data: any) => {
-      setToken(data.token);
+    onSuccess: () => {
       navigate('/home');
     },
     onError: (error: AxiosError<any>) => {
@@ -65,7 +62,6 @@ export default function LoginForm() {
   async function onSubmit(data: LoginData) {
     setLoading(true);
     mutate(data);
-    setValueTab(0);
   }
 
   return (

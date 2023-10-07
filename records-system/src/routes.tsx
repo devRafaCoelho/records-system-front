@@ -62,8 +62,8 @@ export default function MainRoutes() {
           <Route path="/login" element={<Login />} />
           <Route element={<ProtectedRoutes redirectTo="/login" />}>
             <Route path="/home" element={<Home />} />
-            <Route path="/clients" element={<Clients />} />
-            <Route path="/records" element={<Records />} />
+            <Route path="/client" element={<Clients />} />
+            <Route path="/record" element={<Records />} />
             <Route path="/account" element={<Account />} />
           </Route>
         </Routes>

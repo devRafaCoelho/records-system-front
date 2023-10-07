@@ -1,22 +1,30 @@
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
-import { Tab, Tabs } from '@mui/material';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
 import * as React from 'react';
-import useAppContext from '../../hooks/useAppContext';
+import { Link, useLocation } from 'react-router-dom';
 
-export default function IconTabs() {
-  const { valueTab, setValueTab } = useAppContext();
+export default function IconLabelTabs() {
+  const location = useLocation();
+  const [value, setValue] = React.useState(location.pathname);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValueTab(newValue);
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
   };
 
   return (
-    <Tabs value={valueTab} onChange={handleChange}>
-      <Tab icon={<HomeIcon />} label="HOME" />
-      <Tab icon={<PeopleIcon />} label="CLIENTES" />
-      <Tab icon={<RequestPageIcon />} label="COBRANÇAS" />
+    <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
+      <Tab component={Link} to="/home" label="HOME" value="/home" icon={<HomeIcon />} />
+      <Tab component={Link} to="/clients" label="CLIENTS" value="/clients" icon={<PeopleIcon />} />
+      <Tab
+        component={Link}
+        to="/records"
+        label="RECORDS"
+        value="/records"
+        icon={<RequestPageIcon />}
+      />
     </Tabs>
   );
 }
