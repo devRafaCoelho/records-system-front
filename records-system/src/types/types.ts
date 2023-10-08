@@ -59,9 +59,9 @@ export type ClientData = {
 };
 
 export type ListClientsData = {
-  totalClients: number;
+  page: number;
   totalPages: number;
-  currentPage: number;
+  totalClients: number;
   clients: ClientData[];
 };
 

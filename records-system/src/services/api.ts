@@ -76,7 +76,7 @@ async function getHomeData(): Promise<HomeData> {
   return response.data;
 }
 
-async function listClients2(
+async function listClients(
   page: string,
   perPage: string,
   order: string,
@@ -99,15 +99,15 @@ async function listClients2(
   return response.data;
 }
 
-async function listClients(): Promise<ListClientsData> {
-  const response = await axios.get(`${URL}/client`, {
-    headers: {
-      Authorization: `Bearer ${getItem('token')}`
-    }
-  });
+// async function listClients(): Promise<ListClientsData> {
+//   const response = await axios.get(`${URL}/client`, {
+//     headers: {
+//       Authorization: `Bearer ${getItem('token')}`
+//     }
+//   });
 
-  return response.data;
-}
+//   return response.data;
+// }
 
 export const api = {
   registerUser,
@@ -117,6 +117,5 @@ export const api = {
   deleteUser,
   newPassword,
   getHomeData,
-  listClients,
-  listClients2
+  listClients
 };

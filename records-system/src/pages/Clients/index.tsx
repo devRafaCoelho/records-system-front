@@ -1,7 +1,6 @@
-import { Typography, Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import Header from '../../components/Header';
 import CustomPaginationActionsTable from '../../components/TableListClients';
-import GetParams from '../../components/GetParams';
 
 export default function Clients() {
   return (
@@ -13,7 +12,6 @@ export default function Clients() {
           CLIENTS
         </Typography>
         <CustomPaginationActionsTable />
-        {/* <GetParams /> */}
       </Container>
     </>
   );

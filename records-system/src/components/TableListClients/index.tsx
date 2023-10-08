@@ -1,6 +1,11 @@
-import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import LastPageIcon from '@mui/icons-material/LastPage';
+import { Chip, TableHead } from '@mui/material';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,15 +13,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
-import { useQuery } from 'react-query';
-import { api } from '../../services/api';
-import { Chip, TableHead } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import * as React from 'react';
+import usePaginationClient from '../../hooks/usePaginationClient';
 import { getTheme } from '../../theme/theme';
 
 interface TablePaginationActionsProps {
@@ -77,15 +76,18 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 export default function CustomPaginationActionsTable() {
-  const { data } = useQuery(['client-data'], api.listClients);
   const theme = getTheme();
-
   const color = theme.palette.grey[400];
+  const { data, numberPage, numberPerPage } = usePaginationClient();
 
   const rows = data?.clients || [];
 
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(Number(numberPage));
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  React.useEffect(() => {
+    if (rows.length === 0) setPage(0);
+  }, []);
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -145,7 +147,7 @@ export default function CustomPaginationActionsTable() {
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
+              colSpan={6}
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}
