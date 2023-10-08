@@ -20,9 +20,9 @@ export default function IconLabelTabs() {
       <Tab component={Link} to="/client" label="CLIENTS" value="/client" icon={<PeopleIcon />} />
       <Tab
         component={Link}
-        to="/records"
+        to="/record"
         label="RECORDS"
-        value="/records"
+        value="/record"
         icon={<RequestPageIcon />}
       />
     </Tabs>
