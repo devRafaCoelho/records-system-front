@@ -17,7 +17,7 @@ import useAppContext from '../../hooks/useAppContext';
 import { api } from '../../services/api';
 import { getTheme } from '../../theme/theme';
 import { logOut } from '../../utils/storage';
-import LinkTabs from '../HeaderTabs';
+import LinkTabs from './HeaderTabs';
 
 const pages = ['Home', 'Clients', 'Records'];
 const settings = ['My account', 'Log Out'];

@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import LoginForm from '../../components/LoginForm';
+import LoginForm from '../../components/Forms/LoginForm';
 import { MainContainer, StyledLink } from '../../styles/styles';
 
 export default function Login() {

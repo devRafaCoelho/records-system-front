@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import UserRegisterForm from '../../components/UserRegisterForm';
+import UserRegisterForm from '../../components/Forms/UserRegisterForm';
 import { MainContainer, StyledLink } from '../../styles/styles';
 
 export default function Register() {

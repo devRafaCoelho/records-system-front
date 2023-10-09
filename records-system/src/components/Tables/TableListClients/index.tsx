@@ -13,10 +13,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
 import { useTheme } from '@mui/material/styles';
 import * as React from 'react';
-import usePaginationClient from '../../hooks/usePaginationClient';
-import { getTheme } from '../../theme/theme';
+import { useNavigate } from 'react-router-dom';
+import usePaginationClient from '../../../hooks/usePaginationClient';
+import { getTheme } from '../../../theme/theme';
+import CustomizedDialogs from '../../Modals/AddRecordModal';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -78,16 +81,15 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 export default function CustomPaginationActionsTable() {
   const theme = getTheme();
   const color = theme.palette.grey[400];
-  const { data, numberPage, numberPerPage } = usePaginationClient();
 
-  const rows = data?.clients || [];
+  const navigate = useNavigate();
+  const { data, numberPage, order } = usePaginationClient();
 
   const [page, setPage] = React.useState(Number(numberPage));
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [currentOrder, setCurrentOrder] = React.useState(order);
 
-  React.useEffect(() => {
-    if (rows.length === 0) setPage(0);
-  }, []);
+  const rows = data?.clients || [];
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -102,12 +104,32 @@ export default function CustomPaginationActionsTable() {
     setPage(0);
   };
 
+  const handleSortLabelClick = () => {
+    setCurrentOrder((prevOrder: any) => {
+      const newOrder = prevOrder === 'asc' ? 'desc' : 'asc';
+      navigate(`?order=${newOrder}`);
+      return newOrder;
+    });
+  };
+
+  React.useEffect(() => {
+    if (rows.length === 0) setPage(0);
+  }, []);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
-            <TableCell>Client</TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={true}
+                onClick={handleSortLabelClick}
+                direction={currentOrder === 'asc' ? 'asc' : 'desc'}
+              >
+                Name
+              </TableSortLabel>
+            </TableCell>
             <TableCell>CPF</TableCell>
             <TableCell>E-mail</TableCell>
             <TableCell>Phone</TableCell>
@@ -133,7 +155,7 @@ export default function CustomPaginationActionsTable() {
                 />
               </TableCell>
               <TableCell align="center" sx={{ color }}>
-                +
+                <CustomizedDialogs />
               </TableCell>
             </TableRow>
           ))}

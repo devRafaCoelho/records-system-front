@@ -8,8 +8,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableFooter from '@mui/material/TableFooter';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { StyledLink } from '../../styles/styles';
-import { getTheme } from '../../theme/theme';
+import { StyledLink } from '../../../styles/styles';
+import { getTheme } from '../../../theme/theme';
 
 export default function BasicTableClient({ tableData, text }: any) {
   const theme = getTheme();

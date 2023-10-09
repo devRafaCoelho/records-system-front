@@ -5,18 +5,23 @@ type AppContextType = {
   setUserData: (value: any) => void;
   valueAccountTab: any;
   setValueAccountTab: (value: any) => void;
+  currentOrder: any;
+  setCurrentOrder: (value: any) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
   userData: {},
   setUserData: () => {},
   valueAccountTab: {},
-  setValueAccountTab: () => {}
+  setValueAccountTab: () => {},
+  currentOrder: {},
+  setCurrentOrder: () => {}
 });
 
 export default function AppProvider({ children }: any) {
   const [userData, setUserData] = useState({});
   const [valueAccountTab, setValueAccountTab] = useState(0);
+  const [currentOrder, setCurrentOrder] = useState('asc');
 
   return (
     <AppContext.Provider
@@ -24,7 +29,9 @@ export default function AppProvider({ children }: any) {
         userData,
         setUserData,
         valueAccountTab,
-        setValueAccountTab
+        setValueAccountTab,
+        currentOrder,
+        setCurrentOrder
       }}
     >
       {children}

@@ -1,6 +1,6 @@
 import { Container, Typography } from '@mui/material';
 import Header from '../../components/Header';
-import CustomPaginationActionsTable from '../../components/TableListClients';
+import CustomPaginationActionsTable from '../../components/Tables/TableListClients';
 
 export default function Clients() {
   return (

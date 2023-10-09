@@ -1,4 +1,4 @@
-import { CustomTextField } from '../../styles/styles';
+import { CustomTextField } from '../../../styles/styles';
 import InputMask from 'react-input-mask';
 
 type Props = {
