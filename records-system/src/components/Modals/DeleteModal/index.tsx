@@ -8,8 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import * as React from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from '../../hooks/useToast';
-import { api } from '../../services/api';
+import { useToast } from '../../../hooks/useToast';
+import { api } from '../../../services/api';
 
 export default function DeleteModal() {
   const [open, setOpen] = React.useState(false);

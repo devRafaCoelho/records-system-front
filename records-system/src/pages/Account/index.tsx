@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material';
-import DeleteModal from '../../components/DeleteModal';
+import DeleteModal from '../../components/Modals/DeleteModal';
 import Header2 from '../../components/Header';
-import UserUpdateForm from '../../components/UserUpdateForm';
+import UserUpdateForm from '../../components/Forms/UserUpdateForm';
 import { SecondContainer } from '../../styles/styles';
 import CenteredTabs from '../../components/AccountTabs';
 import useAppContext from '../../hooks/useAppContext';
-import NewPasswordForm from '../../components/NewPasswordForm';
+import NewPasswordForm from '../../components/Forms/NewPasswordForm';
 
 export default function Account() {
   const { valueAccountTab } = useAppContext();

@@ -17,12 +17,12 @@ export default function IconLabelTabs() {
   return (
     <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
       <Tab component={Link} to="/home" label="HOME" value="/home" icon={<HomeIcon />} />
-      <Tab component={Link} to="/clients" label="CLIENTS" value="/clients" icon={<PeopleIcon />} />
+      <Tab component={Link} to="/client" label="CLIENTS" value="/client" icon={<PeopleIcon />} />
       <Tab
         component={Link}
-        to="/records"
+        to="/record"
         label="RECORDS"
-        value="/records"
+        value="/record"
         icon={<RequestPageIcon />}
       />
     </Tabs>

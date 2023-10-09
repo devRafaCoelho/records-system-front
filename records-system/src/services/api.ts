@@ -76,11 +76,20 @@ async function getHomeData(): Promise<HomeData> {
   return response.data;
 }
 
-async function listClients(page: string, perPage: string): Promise<ListClientsData> {
+async function listClients(
+  page: string,
+  perPage: string,
+  order: string,
+  status: string,
+  name: string
+): Promise<ListClientsData> {
   const response = await axios.get(`${URL}/client`, {
     params: {
-      page: page,
-      perPage: perPage
+      page,
+      perPage,
+      order,
+      status,
+      name
     },
     headers: {
       Authorization: `Bearer ${getItem('token')}`

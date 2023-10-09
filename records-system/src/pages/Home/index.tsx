@@ -4,8 +4,8 @@ import Header from '../../components/Header';
 import { api } from '../../services/api';
 import { getTheme } from '../../theme/theme';
 import { Item } from './styles';
-import BasicTableRecord from '../../components/BasicTableRecord';
-import BasicTableClient from '../../components/BasicTableClient';
+import BasicTableRecord from '../../components/Tables/BasicTableRecord';
+import BasicTableClient from '../../components/Tables/BasicTableClient';
 
 export default function Home() {
   const { data } = useQuery('home', api.getHomeData);

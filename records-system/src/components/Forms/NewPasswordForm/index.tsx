@@ -5,12 +5,12 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from '../../hooks/useToast.ts';
-import { NewPasswordSchema } from '../../schemas/UserSchema.ts';
-import { api } from '../../services/api.ts';
-import { LoadButton } from '../../styles/styles.ts';
-import { NewPasswordData } from '../../types/types.ts';
-import Input from '../Input/index.tsx';
+import { useToast } from '../../../hooks/useToast.ts';
+import { NewPasswordSchema } from '../../../schemas/UserSchema.ts';
+import { api } from '../../../services/api.ts';
+import { LoadButton } from '../../../styles/styles.ts';
+import { NewPasswordData } from '../../../types/types.ts';
+import Input from '../../Inputs/Input/index.tsx';
 
 export default function NewPasswordForm() {
   const navigate = useNavigate();

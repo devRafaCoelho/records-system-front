@@ -1,7 +1,7 @@
 import { Button, Typography, Box } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
-import { ContainerModal } from '../../styles/styles';
+import { ContainerModal } from '../../../styles/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function BasicModal() {
@@ -12,7 +12,7 @@ export default function BasicModal() {
   return (
     <>
       <Button variant="outlined" size="large" onClick={handleOpen}>
-        ENCERRAR CONTA
+        + Add
       </Button>
       <Modal open={open} onClose={handleClose}>
         <ContainerModal maxWidth="xs">
