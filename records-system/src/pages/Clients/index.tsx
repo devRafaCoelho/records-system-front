@@ -1,17 +1,21 @@
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import Header from '../../components/Header';
-import CustomPaginationActionsTable from '../../components/Tables/TableListClients';
+import CustomPaginationActionsTable2 from '../../components/Tables/TableListClients';
 
 export default function Clients() {
   return (
     <>
       <Header />
 
-      <Container>
-        <Typography variant="h3" mb={4}>
-          CLIENTS
-        </Typography>
-        <CustomPaginationActionsTable />
+      <Container
+        sx={{
+          minHeight: '80vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <CustomPaginationActionsTable2 />
       </Container>
     </>
   );
