@@ -53,21 +53,23 @@ export default function Home() {
           <Grid item md={4} sm={6} xs={12}>
             <BasicTableRecord
               tableData={data?.payedRecords}
-              text="Cobranças Pagas"
+              text="Payed Records"
               color={theme.palette.success.main}
             />
           </Grid>
+
           <Grid item md={4} sm={6} xs={12}>
             <BasicTableRecord
               tableData={data?.expiredRecords}
-              text="Cobranças Vencidas"
+              text="Expired Records"
               color={theme.palette.error.main}
             />
           </Grid>
+
           <Grid item md={4} sm={6} xs={12}>
             <BasicTableRecord
               tableData={data?.pendingRecords}
-              text="Cobranças Pendentes"
+              text="Pending Records"
               color={theme.palette.warning.main}
             />
           </Grid>
@@ -75,10 +77,10 @@ export default function Home() {
 
         <Grid container spacing={3}>
           <Grid item sm={6} xs={12}>
-            <BasicTableClient text="Clientes Inadimplentes" tableData={data?.defaulterClients} />
+            <BasicTableClient text="Defaulter Clients" tableData={data?.defaulterClients} />
           </Grid>
           <Grid item sm={6} xs={12}>
-            <BasicTableClient text="Clientes Em dia" tableData={data?.upToDateClients} />
+            <BasicTableClient text="Up-to-date Clients" tableData={data?.upToDateClients} />
           </Grid>
         </Grid>
       </Container>

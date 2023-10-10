@@ -75,7 +75,7 @@ export default function LoginForm() {
           <Input
             name="password"
             type="password"
-            label="Senha*"
+            label="Password*"
             register={register}
             errors={errors}
           />
@@ -83,7 +83,7 @@ export default function LoginForm() {
 
         <Grid item xs={12}>
           <LoadButton size="large" loading={loading} variant="contained" type="submit" fullWidth>
-            ENTRAR
+            SIGN IN
           </LoadButton>
         </Grid>
       </Grid>

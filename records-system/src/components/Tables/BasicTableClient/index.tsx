@@ -34,14 +34,14 @@ export default function BasicTableClient({ tableData, text }: any) {
             <Chip
               variant="outlined"
               label={tableData.total}
-              color={text === 'Clientes Inadimplentes' ? 'error' : 'success'}
+              color={text === 'Defaulter Clients' ? 'error' : 'success'}
             />
           </TableCell>
         </TableHead>
 
         <TableHead>
           <TableRow>
-            <TableCell>Ciente</TableCell>
+            <TableCell>Cient</TableCell>
             <TableCell align="left">ID</TableCell>
             <TableCell align="left">CPF</TableCell>
           </TableRow>
@@ -68,7 +68,7 @@ export default function BasicTableClient({ tableData, text }: any) {
         <TableFooter>
           <TableCell colSpan={3} align="center">
             <StyledLink to="/clients">
-              <Typography>Ver todos</Typography>
+              <Typography>See all</Typography>
             </StyledLink>
           </TableCell>
         </TableFooter>

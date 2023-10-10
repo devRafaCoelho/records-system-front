@@ -20,6 +20,8 @@ import { useNavigate } from 'react-router-dom';
 import usePaginationClient from '../../../hooks/usePaginationClient';
 import { getTheme } from '../../../theme/theme';
 import CustomizedDialogs from '../../Modals/AddRecordModal';
+import { Link } from 'react-router-dom';
+import { StyledLink } from '../../../styles/styles';
 
 interface TablePaginationActionsProps {
   count: number;
@@ -143,7 +145,11 @@ export default function CustomPaginationActionsTable() {
             : rows
           ).map((row) => (
             <TableRow key={row.id}>
-              <TableCell sx={{ color }}>{row.firstName + ' ' + row.lastName}</TableCell>
+              <TableCell sx={{ color }}>
+                <StyledLink to={`/client/${row.id}`} sx={{ color }}>
+                  {row.firstName + ' ' + row.lastName}
+                </StyledLink>
+              </TableCell>
               <TableCell sx={{ color }}>{row.cpf}</TableCell>
               <TableCell sx={{ color }}>{row.email}</TableCell>
               <TableCell sx={{ color }}>{row.phone}</TableCell>

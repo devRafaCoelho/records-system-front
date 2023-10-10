@@ -37,7 +37,7 @@ export default function DeleteModal() {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        ENCERRAR CONTA
+        CLOSE ACCOUNT
       </Button>
       <Dialog
         open={open}
@@ -45,14 +45,14 @@ export default function DeleteModal() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{'ENCERRAR CONTA?'}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{'CLOSE ACCOUNT?'}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Deseja realmente encerrar sua conta?
+            Do you really want to close your account?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleClose}>Cancel</Button>
           <Button
             onClick={() => {
               mutate();
@@ -61,7 +61,7 @@ export default function DeleteModal() {
             autoFocus
             startIcon={<DeleteIcon />}
           >
-            Encerrar
+            Close
           </Button>
         </DialogActions>
       </Dialog>

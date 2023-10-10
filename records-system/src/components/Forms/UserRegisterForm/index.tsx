@@ -44,7 +44,7 @@ export default function UserRegisterForm() {
 
       toastfy({
         type: 'success',
-        message: 'Dados cadastrados com sucesso!'
+        message: 'Data registered successfully!'
       });
     },
     onError: (error: AxiosError<any>) => {
@@ -80,7 +80,7 @@ export default function UserRegisterForm() {
           <Input
             name="firstName"
             type="text"
-            label="Primeiro Nome*"
+            label="First Name*"
             register={register}
             errors={errors}
           />
@@ -90,7 +90,7 @@ export default function UserRegisterForm() {
           <Input
             name="lastName"
             type="text"
-            label="Último Nome*"
+            label="Last Name*"
             register={register}
             errors={errors}
           />
@@ -107,7 +107,7 @@ export default function UserRegisterForm() {
         <Grid item xs={12}>
           <PhoneInput
             name="phone"
-            label="Telefone"
+            label="Phone"
             register={register}
             errors={errors}
             initialValue=""
@@ -118,7 +118,7 @@ export default function UserRegisterForm() {
           <Input
             name="password"
             type="password"
-            label="Senha*"
+            label="Password*"
             register={register}
             errors={errors}
           />
@@ -128,7 +128,7 @@ export default function UserRegisterForm() {
           <Input
             name="confirmPassword"
             type="password"
-            label="Confirmar Senha*"
+            label="Confirm Password*"
             register={register}
             errors={errors}
           />
@@ -136,7 +136,7 @@ export default function UserRegisterForm() {
 
         <Grid item xs={12}>
           <LoadButton size="large" loading={loading} variant="contained" type="submit" fullWidth>
-            CONFIRMAR DADOS
+            CONFIRM DATA
           </LoadButton>
         </Grid>
       </Grid>

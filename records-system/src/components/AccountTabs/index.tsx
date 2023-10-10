@@ -12,8 +12,8 @@ export default function CenteredTabs() {
 
   return (
     <Tabs value={valueAccountTab} onChange={handleChange} centered>
-      <Tab label="Dados Pessoais" />
-      <Tab label="Segurança" />
+      <Tab label="Personal Data" />
+      <Tab label="Security" />
     </Tabs>
   );
 }

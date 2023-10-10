@@ -46,7 +46,7 @@ export default function UserUpdateForm() {
       setUserData(data);
       toastfy({
         type: 'success',
-        message: 'Dados alterados com sucesso!'
+        message: 'Data updated successfully!'
       });
     },
     onError: (error: AxiosError<any>) => {
@@ -96,7 +96,7 @@ export default function UserUpdateForm() {
           <Input
             name="firstName"
             type="text"
-            label="Primeiro Nome*"
+            label="First Name*"
             register={register}
             errors={errors}
           />
@@ -106,7 +106,7 @@ export default function UserUpdateForm() {
           <Input
             name="lastName"
             type="text"
-            label="Último Nome*"
+            label="Last Name*"
             register={register}
             errors={errors}
           />
@@ -129,7 +129,7 @@ export default function UserUpdateForm() {
         <Grid item xs={12}>
           <PhoneInput
             name="phone"
-            label="Telefone"
+            label="Phone"
             register={register}
             errors={errors}
             initialValue={userData.phone}
@@ -140,7 +140,7 @@ export default function UserUpdateForm() {
           <Input
             name="password"
             type="password"
-            label="Senha*"
+            label="Password*"
             register={register}
             errors={errors}
           />
@@ -148,15 +148,9 @@ export default function UserUpdateForm() {
 
         <Grid item xs={12}>
           <LoadButton size="large" loading={loading} variant="contained" type="submit" fullWidth>
-            CONFIRMAR DADOS
+            CONFIRM DATA
           </LoadButton>
         </Grid>
-
-        {/* <Grid item xs={12}>
-          <Button variant="outlined" size="large" sx={{ marginLeft: 'auto' }}>
-            ENCERRAR CONTA
-          </Button>
-        </Grid> */}
       </Grid>
     </Container>
   );

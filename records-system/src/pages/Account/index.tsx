@@ -15,7 +15,7 @@ export default function Account() {
       <Header2 />
       <SecondContainer>
         <Typography variant="h4" color="grey.200">
-          GERENCIE SEUS DADOS
+          MANAGE YOUR DATA
         </Typography>
 
         <CenteredTabs />

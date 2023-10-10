@@ -13,6 +13,7 @@ import { GlobalStyles } from './styles/GlobalStyles';
 import { getTheme } from './theme/theme';
 import { logOut } from './utils/storage';
 import { checkValidToken } from './utils/token';
+import Client from './pages/Client';
 
 type ProtectedRoutesProps = {
   redirectTo: string;
@@ -63,6 +64,7 @@ export default function MainRoutes() {
           <Route element={<ProtectedRoutes redirectTo="/login" />}>
             <Route path="/home" element={<Home />} />
             <Route path="/client" element={<Clients />} />
+            <Route path="/client/:id" element={<Client />} />
             <Route path="/record" element={<Records />} />
             <Route path="/account" element={<Account />} />
           </Route>

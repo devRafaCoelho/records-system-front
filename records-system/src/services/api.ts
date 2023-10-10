@@ -99,16 +99,6 @@ async function listClients(
   return response.data;
 }
 
-// async function listClients(): Promise<ListClientsData> {
-//   const response = await axios.get(`${URL}/client`, {
-//     headers: {
-//       Authorization: `Bearer ${getItem('token')}`
-//     }
-//   });
-
-//   return response.data;
-// }
-
 export const api = {
   registerUser,
   loginUser,

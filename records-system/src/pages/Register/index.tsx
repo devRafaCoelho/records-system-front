@@ -5,12 +5,12 @@ import { MainContainer, StyledLink } from '../../styles/styles';
 export default function Register() {
   return (
     <MainContainer>
-      <Typography variant="h4">ADICIONE SEUS DADOS</Typography>
+      <Typography variant="h4">ADD YOUR DATA</Typography>
 
       <UserRegisterForm />
 
       <Typography variant="h6">
-        Já possui uma conta? Faça seu <StyledLink to="/login">Login!</StyledLink>
+        Already have an account? <StyledLink to="/login">Login!</StyledLink>
       </Typography>
     </MainContainer>
   );

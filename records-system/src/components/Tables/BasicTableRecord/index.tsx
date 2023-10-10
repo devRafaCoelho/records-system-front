@@ -35,9 +35,9 @@ export default function BasicTableRecord({ tableData, text }: any) {
               variant="outlined"
               label={tableData.total}
               color={
-                text === 'Cobranças Pagas'
+                text === 'Payed Records'
                   ? 'success'
-                  : text === 'Cobranças Vencidas'
+                  : text === 'Expired Records'
                   ? 'error'
                   : 'warning'
               }
@@ -47,9 +47,9 @@ export default function BasicTableRecord({ tableData, text }: any) {
 
         <TableHead>
           <TableRow>
-            <TableCell>Ciente</TableCell>
+            <TableCell>Cient</TableCell>
             <TableCell>ID</TableCell>
-            <TableCell>Valor</TableCell>
+            <TableCell>Value</TableCell>
           </TableRow>
         </TableHead>
 
@@ -68,7 +68,7 @@ export default function BasicTableRecord({ tableData, text }: any) {
         <TableFooter>
           <TableCell colSpan={3} align="center">
             <StyledLink to="/records">
-              <Typography>Ver todos</Typography>
+              <Typography>See all</Typography>
             </StyledLink>
           </TableCell>
         </TableFooter>
