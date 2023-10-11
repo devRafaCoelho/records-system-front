@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
 import { api } from '../services/api';
+import useAppContext from './useAppContext';
 
 export default function usePaginationClient({
   page = 1,
@@ -10,6 +11,7 @@ export default function usePaginationClient({
   name = ''
 } = {}) {
   const location = useLocation();
+  const { setClientsList } = useAppContext();
 
   const queryParams = new URLSearchParams(location.search);
 
@@ -22,6 +24,8 @@ export default function usePaginationClient({
   const { data } = useQuery(['client-data', page, perPage, order, status, name], () =>
     api.listClients(page, perPage, order, status, name)
   );
+
+  setClientsList(data?.clients);
 
   return { data, page, perPage, order };
 }

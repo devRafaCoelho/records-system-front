@@ -57,8 +57,6 @@ export default function CustomPaginationActionsTable() {
     });
   };
 
-  React.useEffect(() => {}, [data]);
-
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>

@@ -64,12 +64,12 @@ export type RegisterClientData = {
   email: string;
   cpf: string;
   phone: string;
-  address: string;
-  complement: string;
-  zip_code: string;
-  district: string;
-  city: string;
-  uf: string;
+  address: string | undefined;
+  complement: string | undefined;
+  zip_code: string | undefined;
+  district: string | undefined;
+  city: string | undefined;
+  uf: string | undefined;
 };
 
 export type ListClientsData = {

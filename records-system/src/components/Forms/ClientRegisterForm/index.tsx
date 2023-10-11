@@ -3,7 +3,7 @@ import { Container, Grid } from '@mui/material';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../../hooks/useToast.ts';
 import { ClientSchema } from '../../../schemas/ClientSchema.ts';
@@ -13,12 +13,14 @@ import { RegisterClientData } from '../../../types/types.ts';
 import CPFInput from '../../Inputs/CPFInput.tsx/index.tsx';
 import Input from '../../Inputs/Input/index.tsx';
 import PhoneInput from '../../Inputs/PhoneInput/index.tsx';
-import ZipCodeInput from '../../Inputs/ZipCodeInput/index.tsx';
 import UFInput from '../../Inputs/UFInput/index.tsx';
+import ZipCodeInput from '../../Inputs/ZipCodeInput/index.tsx';
 
 export default function ClientRegisterForm({ onClose }: any) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -48,6 +50,7 @@ export default function ClientRegisterForm({ onClose }: any) {
     onSuccess: () => {
       onClose();
       navigate('/client');
+      queryClient.invalidateQueries('client-data');
       toastfy({
         type: 'success',
         message: 'Data registered successfully!'
