@@ -1,9 +1,11 @@
 import axios from 'axios';
 import {
+  ClientData,
   HomeData,
   ListClientsData,
   LoginData,
   NewPasswordData,
+  RegisterClientData,
   RegiterUserData,
   UpdateUserData,
   UserData
@@ -99,28 +101,15 @@ async function listClients(
   return response.data;
 }
 
-// async function listClients(
-//   page: string,
-//   perPage: string,
-//   order: string,
-//   status: string,
-//   name: string
-// ): Promise<ListClientsData> {
-//   const response = await axios.get(`${URL}/client`, {
-//     params: {
-//       page,
-//       perPage,
-//       order,
-//       status,
-//       name
-//     },
-//     headers: {
-//       Authorization: `Bearer ${getItem('token')}`
-//     }
-//   });
+async function registerClient(client: RegisterClientData): Promise<ClientData> {
+  const response = await axios.post(`${URL}/client`, client, {
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
 
-//   return response.data;
-// }
+  return response.data;
+}
 
 export const api = {
   registerUser,
@@ -130,5 +119,6 @@ export const api = {
   deleteUser,
   newPassword,
   getHomeData,
-  listClients
+  listClients,
+  registerClient
 };

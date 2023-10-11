@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { alpha, styled } from '@mui/material/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
@@ -71,6 +71,10 @@ export default function SearchInput() {
     setSearchValue(newValue);
     handleNavigate(`?name=${newValue}`);
   };
+
+  useEffect(() => {
+    if (location.search === '') setSearchValue('');
+  }, [location.search]);
 
   return (
     <Search>

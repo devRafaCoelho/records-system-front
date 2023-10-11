@@ -58,6 +58,20 @@ export type ClientData = {
   status: string;
 };
 
+export type RegisterClientData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  cpf: string;
+  phone: string;
+  address: string;
+  complement: string;
+  zip_code: string;
+  district: string;
+  city: string;
+  uf: string;
+};
+
 export type ListClientsData = {
   page: number;
   totalPages: number;

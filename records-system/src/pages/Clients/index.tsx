@@ -1,7 +1,8 @@
-import { Container, Button, Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import Header from '../../components/Header';
-import CustomPaginationActionsTable2 from '../../components/Tables/TableListClients';
+import AddClientModal from '../../components/Modals/AddClientModal';
 import SearchInput from '../../components/SearchInput';
+import CustomPaginationActionsTable2 from '../../components/Tables/TableListClients';
 
 export default function Clients() {
   return (
@@ -20,7 +21,7 @@ export default function Clients() {
         <Box
           sx={{ marginBottom: '2vh', marginLeft: 'auto', display: 'flex', alignItems: 'center' }}
         >
-          <Button variant="contained">Add Client</Button>
+          <AddClientModal />
           <SearchInput />
         </Box>
 

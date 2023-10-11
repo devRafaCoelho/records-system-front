@@ -1,10 +1,11 @@
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { Box, Tooltip } from '@mui/material';
+import { Box, Button, Tooltip } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import * as React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function FilterMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -39,6 +40,12 @@ export default function FilterMenu() {
 
   return (
     <Box sx={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '1vw' }}>
+      {location.search !== '' && (
+        <Button variant="outlined" onClick={() => navigate('/client')}>
+          Clear Filters
+        </Button>
+      )}
+
       <Tooltip title="Filter list">
         <IconButton
           aria-label="more"
@@ -51,6 +58,7 @@ export default function FilterMenu() {
           <FilterListIcon />
         </IconButton>
       </Tooltip>
+
       <Menu
         id="long-menu"
         MenuListProps={{
