@@ -3,6 +3,7 @@ import {
   ClientData,
   HomeData,
   ListClientsData,
+  ListRecordsData,
   LoginData,
   NewPasswordData,
   RegisterClientData,
@@ -111,6 +112,31 @@ async function registerClient(client: RegisterClientData): Promise<ClientData> {
   return response.data;
 }
 
+async function listRecords(
+  page: number,
+  perPage: number,
+  orderID: string,
+  orderName: string,
+  status: string,
+  name: string
+): Promise<ListRecordsData> {
+  const response = await axios.get(`${URL}/record`, {
+    params: {
+      page,
+      perPage,
+      orderID,
+      orderName,
+      status,
+      name
+    },
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
+
+  return response.data;
+}
+
 export const api = {
   registerUser,
   loginUser,
@@ -119,6 +145,7 @@ export const api = {
   deleteUser,
   newPassword,
   getHomeData,
+  registerClient,
   listClients,
-  registerClient
+  listRecords
 };

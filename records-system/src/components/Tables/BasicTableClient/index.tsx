@@ -33,7 +33,7 @@ export default function BasicTableClient({ tableData, text }: any) {
           <TableCell align="center">
             <Chip
               variant="outlined"
-              label={tableData.total}
+              label={tableData.totalClients}
               color={text === 'Defaulter Clients' ? 'error' : 'success'}
             />
           </TableCell>

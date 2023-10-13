@@ -3,9 +3,8 @@ import { Container, Grid } from '@mui/material';
 import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import useAppContext from '../../../hooks/useAppContext.ts';
 import { useToast } from '../../../hooks/useToast.ts';
 import { UpdateUserSchema } from '../../../schemas/UserSchema.ts';
 import { api } from '../../../services/api.ts';
@@ -17,8 +16,11 @@ import PhoneInput from '../../Inputs/PhoneInput/index.tsx';
 
 export default function UserUpdateForm() {
   const navigate = useNavigate();
-  const { userData, setUserData } = useAppContext();
+  const { toastfy } = useToast();
+  const queryClient = useQueryClient();
   const [loading, setLoading] = useState(false);
+
+  const { data } = useQuery('user-data', api.getUser);
 
   const {
     register,
@@ -38,12 +40,10 @@ export default function UserUpdateForm() {
     }
   });
 
-  const { toastfy } = useToast();
-
   const { mutate } = useMutation(api.updateUser, {
-    onSuccess: (data) => {
+    onSuccess: () => {
       navigate('/home');
-      setUserData(data);
+      queryClient.invalidateQueries('user-data');
       toastfy({
         type: 'success',
         message: 'Data updated successfully!'
@@ -76,16 +76,16 @@ export default function UserUpdateForm() {
   }
 
   useEffect(() => {
-    if (userData) {
-      setValue('firstName', userData.firstName);
-      setValue('lastName', userData.lastName);
-      setValue('email', userData.email);
-      setValue('cpf', userData.cpf ? userData.cpf : '');
-      setValue('phone', userData.phone ? userData.phone : '');
+    if (data) {
+      setValue('firstName', data.firstName);
+      setValue('lastName', data.lastName);
+      setValue('email', data.email);
+      setValue('cpf', data.cpf ? data.cpf : '');
+      setValue('phone', data.phone ? data.phone : '');
     }
-  }, [userData]);
+  }, [data]);
 
-  if (!userData) {
+  if (!data) {
     return null;
   }
 
@@ -122,7 +122,7 @@ export default function UserUpdateForm() {
             label="CPF"
             register={register}
             errors={errors}
-            initialValue={userData.cpf}
+            initialValue={data.cpf}
           />
         </Grid>
 
@@ -132,7 +132,7 @@ export default function UserUpdateForm() {
             label="Phone"
             register={register}
             errors={errors}
-            initialValue={userData.phone}
+            initialValue={data.phone}
           />
         </Grid>
 

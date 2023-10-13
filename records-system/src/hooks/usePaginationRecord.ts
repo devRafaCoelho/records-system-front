@@ -1,31 +1,29 @@
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
 import { api } from '../services/api';
-import useAppContext from './useAppContext';
 
-export default function usePaginationClient({
+export default function usePaginationRecord({
   page = 1,
   perPage = 5,
-  order = 'asc',
+  orderID = 'asc',
+  orderName = 'asc',
   status = '',
   name = ''
 } = {}) {
   const location = useLocation();
-  const { setClientsList } = useAppContext();
 
   const queryParams = new URLSearchParams(location.search);
 
   page = Number(queryParams.get('page') || page);
   perPage = Number(queryParams.get('perPage') || perPage);
-  order = queryParams.get('order') || order;
+  orderID = queryParams.get('orderID') || orderID;
+  orderName = queryParams.get('orderName') || orderName;
   status = queryParams.get('status') || status;
   name = queryParams.get('name') || name;
 
-  const { data } = useQuery(['list-clients', page, perPage, order, status, name], () =>
-    api.listClients(page, perPage, order, status, name)
+  const { data } = useQuery(['list-records', page, perPage, orderID, orderName, status, name], () =>
+    api.listRecords(page, perPage, orderID, orderName, status, name)
   );
 
-  setClientsList(data?.clients);
-
-  return { data, page, perPage, order };
+  return { data, page, perPage, orderID, orderName };
 }

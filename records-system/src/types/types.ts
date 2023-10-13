@@ -90,6 +90,14 @@ export type RecordData = {
   clientName: string;
 };
 
+export type ListRecordsData = {
+  page: number;
+  totalPages: number;
+  totalRecords: number;
+  totalValue: string | undefined;
+  records: RecordData[];
+};
+
 export type HomeData = {
   totalValuePayed: string;
   totalValuePending: string;

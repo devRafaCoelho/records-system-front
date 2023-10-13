@@ -30,10 +30,10 @@ export default function BasicTableRecord({ tableData, text }: any) {
             <Typography variant="h6">{text}</Typography>
           </TableCell>
 
-          <TableCell>
+          <TableCell align="center">
             <Chip
               variant="outlined"
-              label={tableData.total}
+              label={tableData.totalRecords}
               color={
                 text === 'Payed Records'
                   ? 'success'

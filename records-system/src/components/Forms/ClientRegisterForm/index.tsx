@@ -50,7 +50,7 @@ export default function ClientRegisterForm({ onClose }: any) {
     onSuccess: () => {
       onClose();
       navigate('/client');
-      queryClient.invalidateQueries('client-data');
+      queryClient.invalidateQueries('list-clients');
       toastfy({
         type: 'success',
         message: 'Data registered successfully!'

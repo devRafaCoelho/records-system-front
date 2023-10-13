@@ -10,10 +10,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import useAppContext from '../../hooks/useAppContext';
 import { api } from '../../services/api';
 import { getTheme } from '../../theme/theme';
 import { logOut } from '../../utils/storage';
@@ -24,7 +22,6 @@ const settings = ['My account', 'Log Out'];
 const paths = ['/home', '/clients', '/records'];
 
 function ResponsiveAppBar() {
-  const { setUserData } = useAppContext();
   const { data } = useQuery('user-data', api.getUser);
   const navigate = useNavigate();
   const theme = getTheme();
@@ -57,10 +54,6 @@ function ResponsiveAppBar() {
     navigate('/account');
     handleCloseUserMenu;
   };
-
-  useEffect(() => {
-    setUserData(data);
-  }, [data]);
 
   return (
     <AppBar position="sticky" sx={{ width: '100%' }}>

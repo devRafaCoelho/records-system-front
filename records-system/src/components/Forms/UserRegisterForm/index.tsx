@@ -16,6 +16,7 @@ import PhoneInput from '../../Inputs/PhoneInput/index.tsx';
 
 export default function UserRegisterForm() {
   const navigate = useNavigate();
+  const { toastfy } = useToast();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -36,12 +37,9 @@ export default function UserRegisterForm() {
     }
   });
 
-  const { toastfy } = useToast();
-
   const { mutate } = useMutation(api.registerUser, {
     onSuccess: () => {
       navigate('/login');
-
       toastfy({
         type: 'success',
         message: 'Data registered successfully!'

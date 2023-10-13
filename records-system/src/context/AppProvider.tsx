@@ -9,6 +9,10 @@ type AppContextType = {
   setValueAccountTab: (value: any) => void;
   currentOrder: any;
   setCurrentOrder: (value: any) => void;
+  open: any;
+  setOpen: (value: any) => void;
+  message: any;
+  setMessage: (value: any) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -19,7 +23,11 @@ export const AppContext = createContext<AppContextType>({
   valueAccountTab: {},
   setValueAccountTab: () => {},
   currentOrder: {},
-  setCurrentOrder: () => {}
+  setCurrentOrder: () => {},
+  open: {},
+  setOpen: () => {},
+  message: {},
+  setMessage: () => {}
 });
 
 export default function AppProvider({ children }: any) {
@@ -27,6 +35,8 @@ export default function AppProvider({ children }: any) {
   const [valueAccountTab, setValueAccountTab] = useState(0);
   const [currentOrder, setCurrentOrder] = useState('asc');
   const [clientsList, setClientsList] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
 
   return (
     <AppContext.Provider
@@ -38,7 +48,11 @@ export default function AppProvider({ children }: any) {
         currentOrder,
         setCurrentOrder,
         clientsList,
-        setClientsList
+        setClientsList,
+        open,
+        setOpen,
+        message,
+        setMessage
       }}
     >
       {children}
