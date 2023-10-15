@@ -16,7 +16,7 @@ export default function BasicModal() {
       </Button>
       <Modal open={open} onClose={handleClose}>
         <ContainerModal maxWidth="xs">
-          <Typography>DESEJA EXCLUIR A CONTA?</Typography>
+          <Typography>DO YOU WANT TO DELETE YOUR ACCOUNT?</Typography>
 
           <Box>
             <Button
