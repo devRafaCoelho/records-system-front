@@ -2,7 +2,7 @@ import { Box, Container } from '@mui/material';
 import Header from '../../components/Header';
 import AddClientModal from '../../components/Modals/AddClientModal';
 import SearchInput from '../../components/SearchInput';
-import CustomPaginationActionsTable2 from '../../components/Tables/TableListClients';
+import CustomPaginationActionsTable from '../../components/Tables/TableListClients';
 
 export default function Clients() {
   return (
@@ -25,7 +25,7 @@ export default function Clients() {
           <SearchInput />
         </Box>
 
-        <CustomPaginationActionsTable2 />
+        <CustomPaginationActionsTable />
       </Container>
     </>
   );

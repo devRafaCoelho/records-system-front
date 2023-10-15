@@ -56,6 +56,7 @@ export type ClientData = {
   city: string;
   uf: string;
   status: string;
+  Records: RecordData[];
 };
 
 export type RegisterClientData = {

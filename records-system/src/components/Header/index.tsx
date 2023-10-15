@@ -56,7 +56,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="sticky" sx={{ width: '100%' }}>
+    <AppBar position="sticky" sx={{ width: '100%', marginBottom: '3vh' }}>
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           <Typography

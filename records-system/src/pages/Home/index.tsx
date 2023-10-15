@@ -1,12 +1,11 @@
 import { Container, Grid, Typography } from '@mui/material';
-import { useEffect } from 'react';
 import Header from '../../components/Header';
+import BasicTableClient from '../../components/Tables/BasicTableClient';
 import BasicTableRecord from '../../components/Tables/BasicTableRecord';
+import usePaginationClient from '../../hooks/usePaginationClient';
 import usePaginationRecord from '../../hooks/usePaginationRecord';
 import { getTheme } from '../../theme/theme';
 import { Item } from './styles';
-import usePaginationClient from '../../hooks/usePaginationClient';
-import BasicTableClient from '../../components/Tables/BasicTableClient';
 
 export default function Home() {
   const theme = getTheme();
@@ -17,7 +16,7 @@ export default function Home() {
   const { data: uptodateData } = usePaginationClient({ status: 'up-to-date' });
   const { data: defaulterData } = usePaginationClient({ status: 'defaulter' });
 
-  if (!payedData || !expiredData || !pendingData) {
+  if (!payedData || !expiredData || !pendingData || !uptodateData || !defaulterData) {
     return null;
   }
 

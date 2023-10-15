@@ -79,6 +79,16 @@ async function getHomeData(): Promise<HomeData> {
   return response.data;
 }
 
+async function registerClient(client: RegisterClientData): Promise<ClientData> {
+  const response = await axios.post(`${URL}/client`, client, {
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
+
+  return response.data;
+}
+
 async function listClients(
   page: number,
   perPage: number,
@@ -102,8 +112,9 @@ async function listClients(
   return response.data;
 }
 
-async function registerClient(client: RegisterClientData): Promise<ClientData> {
-  const response = await axios.post(`${URL}/client`, client, {
+async function getClient(id: number, order: string): Promise<ClientData> {
+  const response = await axios.get(`${URL}/client/${id}`, {
+    params: { order },
     headers: {
       Authorization: `Bearer ${getItem('token')}`
     }
@@ -146,6 +157,7 @@ export const api = {
   newPassword,
   getHomeData,
   registerClient,
+  getClient,
   listClients,
   listRecords
 };
