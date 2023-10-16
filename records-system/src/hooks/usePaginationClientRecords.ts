@@ -1,17 +1,15 @@
 import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
-import { api } from '../services/api'; // Certifique-se de importar o módulo 'api' corretamente
+import { api } from '../services/api';
 
-export default function usePaginationClientRecords({ id, order = 'asc' }: any = {}) {
+export default function usePaginationClientRecords(id: number, order = 'asc') {
   const location = useLocation();
+
   const queryParams = new URLSearchParams(location.search);
+
   order = queryParams.get('order') || order;
 
-  const { data } = useQuery(['list-client-records', id, order], () =>
-    api.getClient(Number(id), order)
-  );
+  const { data } = useQuery(['get-client', id, order], () => api.getClient(id, order));
 
-  const records = data?.Records;
-
-  return { records, order };
+  return { data, order };
 }

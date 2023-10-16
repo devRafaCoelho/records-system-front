@@ -19,7 +19,7 @@ import LinkTabs from './HeaderTabs';
 
 const pages = ['Home', 'Clients', 'Records'];
 const settings = ['My account', 'Log Out'];
-const paths = ['/home', '/clients', '/records'];
+const paths = ['/home', '/client', '/record'];
 
 function ResponsiveAppBar() {
   const { data } = useQuery('user-data', api.getUser);

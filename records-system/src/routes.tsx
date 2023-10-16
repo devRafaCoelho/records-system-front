@@ -40,7 +40,7 @@ export default function MainRoutes() {
       navigate('/login');
       toastfy({
         type: 'warning',
-        message: 'Sessão expirada!'
+        message: 'Session expired!'
       });
     }
   }

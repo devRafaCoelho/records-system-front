@@ -89,6 +89,17 @@ async function registerClient(client: RegisterClientData): Promise<ClientData> {
   return response.data;
 }
 
+async function getClient(id: number, order: string): Promise<ClientData> {
+  const response = await axios.get(`${URL}/client/${id}`, {
+    params: { order },
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
+
+  return response.data;
+}
+
 async function listClients(
   page: number,
   perPage: number,
@@ -104,17 +115,6 @@ async function listClients(
       status,
       name
     },
-    headers: {
-      Authorization: `Bearer ${getItem('token')}`
-    }
-  });
-
-  return response.data;
-}
-
-async function getClient(id: number, order: string): Promise<ClientData> {
-  const response = await axios.get(`${URL}/client/${id}`, {
-    params: { order },
     headers: {
       Authorization: `Bearer ${getItem('token')}`
     }

@@ -18,18 +18,17 @@ import UpdateRecordModal from '../../Modals/UpdateRecordModal';
 import PaginationActions from './PaginationActions';
 import usePaginationClientRecords from '../../../hooks/usePaginationClientRecords';
 
-export default function TableListClientRecords({ id }: any) {
+export default function TableListClientRecords({ data }: any) {
   const theme = getTheme();
   const color = theme.palette.grey[400];
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { records } = usePaginationClientRecords({ id });
   const [currentOrder, setCurrentOrder] = React.useState('asc');
 
   const handleNavigate = (params: string) => {
     if (location.search === '') {
-      navigate(`/client/${id}${params}`);
+      navigate(`/client/${data.id}${params}`);
     } else {
       const searchParams = new URLSearchParams(location.search);
       const newSearchParams = new URLSearchParams(params);
@@ -38,7 +37,7 @@ export default function TableListClientRecords({ id }: any) {
         value !== null && value !== '' ? searchParams.set(key, value) : searchParams.delete(key);
       }
 
-      navigate(`/client/${id}?${searchParams.toString()}`);
+      navigate(`/client/${data.id}?${searchParams.toString()}`);
     }
   };
 
@@ -102,7 +101,7 @@ export default function TableListClientRecords({ id }: any) {
             </TableHead>
 
             <TableBody>
-              {records?.map((row: any) => (
+              {data?.Records.map((row: any) => (
                 <TableRow key={row.id}>
                   <TableCell sx={{ color }}>{row.id}</TableCell>
                   <TableCell sx={{ color }}>{row.due_date}</TableCell>

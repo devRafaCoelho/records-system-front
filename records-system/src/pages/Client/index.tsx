@@ -1,19 +1,14 @@
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, Container, Grid, Paper, Typography } from '@mui/material';
-import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import TableListClientRecords from '../../components/Tables/TableListClientRecords';
-import { api } from '../../services/api';
-import { useEffect } from 'react';
+import usePaginationClientRecords from '../../hooks/usePaginationClientRecords';
 
 export default function Client() {
   const { id } = useParams();
-  const { data } = useQuery('client-data', () => api.getClient(Number(id), 'asc'));
+  const { data } = usePaginationClientRecords(Number(id), 'asc');
 
-  useEffect(() => {
-    console.log(data?.Records);
-  }, []);
   return (
     <>
       <Header />
@@ -116,7 +111,7 @@ export default function Client() {
         </Paper>
 
         <Paper sx={{ padding: (theme) => theme.spacing(2) }}>
-          <TableListClientRecords id={data?.id} />
+          <TableListClientRecords data={data} />
         </Paper>
       </Container>
     </>
