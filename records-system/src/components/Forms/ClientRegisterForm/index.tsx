@@ -19,11 +19,13 @@ import ZipCodeInput from '../../Inputs/ZipCodeInput/index.tsx';
 export default function ClientRegisterForm({ onClose }: any) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { toastfy } = useToast();
 
   const queryClient = useQueryClient();
 
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
     setError
@@ -43,8 +45,6 @@ export default function ClientRegisterForm({ onClose }: any) {
       uf: ''
     }
   });
-
-  const { toastfy } = useToast();
 
   const { mutate } = useMutation(api.registerClient, {
     onSuccess: () => {
@@ -125,7 +125,13 @@ export default function ClientRegisterForm({ onClose }: any) {
         </Grid>
 
         <Grid item sm={6} xs={12}>
-          <ZipCodeInput name="zip_code" label="CEP" register={register} errors={errors} />
+          <ZipCodeInput
+            name="zip_code"
+            label="CEP"
+            register={register}
+            setValue={setValue}
+            errors={errors}
+          />
         </Grid>
 
         <Grid item sm={6} xs={12}>

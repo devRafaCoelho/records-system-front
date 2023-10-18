@@ -124,3 +124,16 @@ export type HomeData = {
     clients: ClientData[];
   };
 };
+
+export type CEPData = {
+  cep: string;
+  logradouro: string;
+  complemento: string;
+  bairro: string;
+  localidade: string;
+  uf: string;
+  ibge: string;
+  gia: string;
+  ddd: string;
+  siafi: string;
+};

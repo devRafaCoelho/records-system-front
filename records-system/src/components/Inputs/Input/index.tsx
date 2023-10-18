@@ -40,6 +40,7 @@ export default function Input({ name, type, label, register, errors }: Props) {
             </InputAdornment>
           ) : null
       }}
+      // InputLabelProps={{ shrink: true }}
     />
   );
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  CEPData,
   ClientData,
   HomeData,
   ListClientsData,
@@ -148,6 +149,12 @@ async function listRecords(
   return response.data;
 }
 
+async function getZipCode(zipCode: number): Promise<CEPData> {
+  const response = await axios.get(`https://viacep.com.br/ws/${zipCode}/json/`);
+
+  return response.data;
+}
+
 export const api = {
   registerUser,
   loginUser,
@@ -159,5 +166,6 @@ export const api = {
   registerClient,
   getClient,
   listClients,
-  listRecords
+  listRecords,
+  getZipCode
 };
