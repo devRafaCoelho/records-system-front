@@ -1,6 +1,5 @@
 import { TextField } from '@mui/material';
 import { useState } from 'react';
-import useAppContext from '../../../hooks/useAppContext';
 
 type Props = {
   name: string;
@@ -11,8 +10,7 @@ type Props = {
 };
 
 export default function UFInput({ name, label, register, errors, initialValue }: Props) {
-  const { userData } = useAppContext();
-  const [ufValue, setUFValue] = useState(initialValue || userData.uf);
+  const [ufValue, setUFValue] = useState(initialValue);
 
   const handleChange = (event: any) => {
     const newValue = event.target.value

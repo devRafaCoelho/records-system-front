@@ -78,7 +78,7 @@ export default function ClientRegisterForm({ onClose }: any) {
   async function onSubmit(data: RegisterClientData) {
     data.cpf = data.cpf?.replace(/\D/g, '');
     data.phone = data.phone?.replace(/[^+\d]/g, '');
-    data.zip_code = data.zip_code?.replace(/-/g, '');
+    // data.zip_code = data.zip_code?.replace(/-/g, '');
     setLoading(true);
     mutate(data);
   }

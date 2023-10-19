@@ -111,17 +111,11 @@ export default function ClientRegisterForm({ onClose }: any) {
         </Grid>
 
         <Grid item xs={12}>
-          <CPFInput name="cpf" label="CPF" register={register} errors={errors} initialValue="" />
+          <CPFInput name="cpf" label="CPF" register={register} errors={errors} />
         </Grid>
 
         <Grid item xs={12}>
-          <PhoneInput
-            name="phone"
-            label="Phone"
-            register={register}
-            errors={errors}
-            initialValue=""
-          />
+          <PhoneInput name="phone" label="Phone" register={register} errors={errors} />
         </Grid>
 
         <Grid item sm={6} xs={12}>
@@ -129,8 +123,9 @@ export default function ClientRegisterForm({ onClose }: any) {
             name="zip_code"
             label="CEP"
             register={register}
-            setValue={setValue}
             errors={errors}
+            initialValue=""
+            setValue={setValue}
           />
         </Grid>
 

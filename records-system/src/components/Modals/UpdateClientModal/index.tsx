@@ -32,7 +32,7 @@ export default function UpdateClientModal() {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen}>
         <EditIcon fontSize="small" style={{ marginRight: '0.5vw' }} />
         Edit Client
       </Button>
@@ -59,7 +59,6 @@ export default function UpdateClientModal() {
         </IconButton>
 
         <DialogContent sx={{ backgroundColor: theme.palette.grey[900] }}>
-          {/* <ClientRegisterForm onClose={handleClose} /> */}
           <ClientUpdateForm onClose={handleClose} />
         </DialogContent>
       </BootstrapDialog>

@@ -14,8 +14,8 @@ import CPFInput from '../../Inputs/CPFInput.tsx/index.tsx';
 import Input from '../../Inputs/Input/index.tsx';
 import PhoneInput from '../../Inputs/PhoneInput/index.tsx';
 import UFInput from '../../Inputs/UFInput/index.tsx';
-import ZipCodeInput from '../../Inputs/ZipCodeInput/index.tsx';
 import useAppContext from '../../../hooks/useAppContext.ts';
+import ZipCodeInput from '../../Inputs/ZipCodeInput/index.tsx';
 
 export default function ClientUpdateForm({ onClose }: any) {
   const { id } = useParams();
@@ -85,6 +85,7 @@ export default function ClientUpdateForm({ onClose }: any) {
     data.zip_code = data.zip_code?.replace(/-/g, '');
     setLoading(true);
     mutate(data);
+    console.log(data);
   }
 
   useEffect(() => {
@@ -92,14 +93,14 @@ export default function ClientUpdateForm({ onClose }: any) {
       setValue('firstName', clientData.firstName);
       setValue('lastName', clientData.lastName);
       setValue('email', clientData.email);
-      setValue('cpf', clientData.cpf ? clientData.cpf : '');
-      setValue('phone', clientData.phone ? clientData.phone : '');
-      setValue('zip_code', clientData.zip_code);
-      setValue('district', clientData.district);
-      setValue('city', clientData.city);
-      setValue('uf', clientData.uf);
-      setValue('address', clientData.address);
-      setValue('complement', clientData.complement);
+      setValue('cpf', clientData.cpf);
+      setValue('phone', clientData.phone);
+      setValue('zip_code', clientData.zip_code ?? '');
+      setValue('district', clientData.district ?? '');
+      setValue('city', clientData.city ?? '');
+      setValue('uf', clientData.uf ?? '');
+      setValue('address', clientData.address ?? '');
+      setValue('complement', clientData.complement ?? '');
     }
   }, [clientData]);
 
@@ -157,6 +158,7 @@ export default function ClientUpdateForm({ onClose }: any) {
             register={register}
             setValue={setValue}
             errors={errors}
+            initialValue={clientData.zip_code}
           />
         </Grid>
 

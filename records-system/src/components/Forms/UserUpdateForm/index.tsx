@@ -80,8 +80,8 @@ export default function UserUpdateForm() {
       setValue('firstName', userData.firstName);
       setValue('lastName', userData.lastName);
       setValue('email', userData.email);
-      setValue('cpf', userData.cpf ? userData.cpf : '');
-      setValue('phone', userData.phone ? userData.phone : '');
+      setValue('cpf', userData.cpf ?? '');
+      setValue('phone', userData.phone ?? '');
     }
   }, [userData]);
 

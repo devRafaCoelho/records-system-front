@@ -1,11 +1,12 @@
-import { Container, Grid, Paper, Typography } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import { Container, Grid, Paper, Typography, Box } from '@mui/material';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import UpdateClientModal from '../../components/Modals/UpdateClientModal';
 import TableListClientRecords from '../../components/Tables/TableListClientRecords';
-import usePaginationClientRecords from '../../hooks/usePaginationClientRecords';
 import useAppContext from '../../hooks/useAppContext';
-import { useEffect } from 'react';
+import usePaginationClientRecords from '../../hooks/usePaginationClientRecords';
 
 export default function Client() {
   const { id } = useParams();
@@ -21,9 +22,13 @@ export default function Client() {
       <Header />
 
       <Container>
-        <Typography variant="h4" mb={4}>
-          {`${data?.firstName} ${data?.lastName}`}
-        </Typography>
+        <Box
+          sx={{ display: 'flex', alignItems: 'center', gap: (theme) => theme.spacing(2) }}
+          mb={4}
+        >
+          <PersonIcon fontSize="large" />
+          <Typography variant="h4">{`${data?.firstName} ${data?.lastName}`}</Typography>
+        </Box>
 
         <Paper
           sx={{ marginBottom: (theme) => theme.spacing(4), padding: (theme) => theme.spacing(2) }}
@@ -35,10 +40,6 @@ export default function Client() {
 
             <Grid item xs={6} textAlign="end">
               <UpdateClientModal />
-              {/* <Button variant="outlined">
-                <EditIcon fontSize="small" style={{ marginRight: '0.5vw' }} />
-                Edit Client
-              </Button> */}
             </Grid>
 
             <Grid item sm={4} xs={6}>
@@ -62,59 +63,59 @@ export default function Client() {
               </Typography>
             </Grid>
 
-            {data?.zip_code !== null ? (
+            {data?.zip_code && (
               <Grid item sm={4} xs={6}>
                 <Typography variant="h6">Zip Code</Typography>
                 <Typography variant="subtitle1" color={(theme) => theme.palette.grey[400]}>
                   {data?.zip_code}
                 </Typography>
               </Grid>
-            ) : null}
+            )}
 
-            {data?.address !== null ? (
+            {data?.address && (
               <Grid item sm={4} xs={6}>
                 <Typography variant="h6">Address</Typography>
                 <Typography variant="subtitle1" color={(theme) => theme.palette.grey[400]}>
                   {data?.address}
                 </Typography>
               </Grid>
-            ) : null}
+            )}
 
-            {data?.complement !== null ? (
+            {data?.complement && (
               <Grid item sm={4} xs={6}>
                 <Typography variant="h6">Complement</Typography>
                 <Typography variant="subtitle1" color={(theme) => theme.palette.grey[400]}>
                   {data?.complement}
                 </Typography>
               </Grid>
-            ) : null}
+            )}
 
-            {data?.district !== null ? (
+            {data?.district && (
               <Grid item xs={4}>
                 <Typography variant="h6">District</Typography>
                 <Typography variant="subtitle1" color={(theme) => theme.palette.grey[400]}>
                   {data?.district}
                 </Typography>
               </Grid>
-            ) : null}
+            )}
 
-            {data?.city !== null ? (
+            {data?.city && (
               <Grid item xs={4}>
                 <Typography variant="h6">City</Typography>
                 <Typography variant="subtitle1" color={(theme) => theme.palette.grey[400]}>
                   {data?.city}
                 </Typography>
               </Grid>
-            ) : null}
+            )}
 
-            {data?.uf !== null ? (
+            {data?.uf && (
               <Grid item xs={4}>
                 <Typography variant="h6">UF</Typography>
                 <Typography variant="subtitle1" color={(theme) => theme.palette.grey[400]}>
                   {data?.uf}
                 </Typography>
               </Grid>
-            ) : null}
+            )}
           </Grid>
         </Paper>
 

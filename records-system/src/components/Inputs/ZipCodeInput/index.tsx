@@ -1,17 +1,16 @@
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import InputMask from 'react-input-mask';
-import useAppContext from '../../../hooks/useAppContext';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { api } from '../../../services/api';
 
 type Props = {
   name: string;
   label: string;
   register: any;
-  setValue: any;
   errors?: any;
   initialValue?: any;
+  setValue: any;
 };
 
 function CustomInputMaskComponent({ ...props }) {
@@ -30,13 +29,11 @@ export default function ZipCodeInput({
   name,
   label,
   register,
-  setValue,
   errors,
-  initialValue
+  initialValue,
+  setValue
 }: Props) {
-  const { userData } = useAppContext();
-  const [zipCodeValue, setZipCodeValue] = useState(initialValue || userData.zipCode);
-  const queryClient = useQueryClient();
+  const [zipCodeValue, setZipCodeValue] = useState(initialValue);
 
   const handleChange = (event: any) => {
     setZipCodeValue(event.target.value);
@@ -45,9 +42,7 @@ export default function ZipCodeInput({
   const isValidCEP = zipCodeValue && zipCodeValue.length === 9;
 
   const { data, isError } = useQuery(['CEP-data', zipCodeValue], () => {
-    if (isValidCEP) {
-      return api.getZipCode(zipCodeValue);
-    }
+    if (isValidCEP) return api.getZipCode(zipCodeValue);
   });
 
   useEffect(() => {
@@ -64,7 +59,6 @@ export default function ZipCodeInput({
       id={name}
       label={label}
       variant="outlined"
-      defaultValue={zipCodeValue}
       fullWidth
       {...register(name)}
       error={!!errors?.[name]}
@@ -73,11 +67,6 @@ export default function ZipCodeInput({
         inputComponent: CustomInputMaskComponent,
         value: zipCodeValue,
         onChange: handleChange
-      }}
-      onBlur={() => {
-        if (isValidCEP) {
-          queryClient.invalidateQueries(['CEP-data', zipCodeValue]);
-        }
       }}
     />
   );
