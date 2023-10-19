@@ -1,25 +1,28 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Container, Grid } from '@mui/material';
 import { AxiosError } from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useToast } from '../../../hooks/useToast.ts';
 import { ClientSchema } from '../../../schemas/ClientSchema.ts';
 import { api } from '../../../services/api.ts';
 import { LoadButton } from '../../../styles/styles.ts';
-import { RegisterClientData } from '../../../types/types.ts';
+import { UpdatClientData } from '../../../types/types.ts';
 import CPFInput from '../../Inputs/CPFInput.tsx/index.tsx';
 import Input from '../../Inputs/Input/index.tsx';
 import PhoneInput from '../../Inputs/PhoneInput/index.tsx';
 import UFInput from '../../Inputs/UFInput/index.tsx';
 import ZipCodeInput from '../../Inputs/ZipCodeInput/index.tsx';
+import useAppContext from '../../../hooks/useAppContext.ts';
 
-export default function ClientRegisterForm({ onClose }: any) {
-  const { toastfy } = useToast();
+export default function ClientUpdateForm({ onClose }: any) {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { toastfy } = useToast();
+  const { clientData } = useAppContext();
 
   const queryClient = useQueryClient();
 
@@ -29,7 +32,7 @@ export default function ClientRegisterForm({ onClose }: any) {
     handleSubmit,
     formState: { errors },
     setError
-  } = useForm<RegisterClientData>({
+  } = useForm<UpdatClientData>({
     resolver: yupResolver(ClientSchema),
     defaultValues: {
       firstName: '',
@@ -46,14 +49,15 @@ export default function ClientRegisterForm({ onClose }: any) {
     }
   });
 
-  const { mutate } = useMutation(api.registerClient, {
+  const { mutate } = useMutation((data: UpdatClientData) => api.updateClient(Number(id), data), {
     onSuccess: () => {
       onClose();
       navigate('/client');
+      queryClient.invalidateQueries('client-data');
       queryClient.invalidateQueries('list-clients');
       toastfy({
         type: 'success',
-        message: 'Data registered successfully!'
+        message: 'Data updated successfully!'
       });
     },
     onError: (error: AxiosError<any>) => {
@@ -75,13 +79,31 @@ export default function ClientRegisterForm({ onClose }: any) {
     }
   });
 
-  async function onSubmit(data: RegisterClientData) {
+  async function onSubmit(data: UpdatClientData) {
     data.cpf = data.cpf?.replace(/\D/g, '');
     data.phone = data.phone?.replace(/[^+\d]/g, '');
     data.zip_code = data.zip_code?.replace(/-/g, '');
     setLoading(true);
     mutate(data);
   }
+
+  useEffect(() => {
+    if (clientData) {
+      setValue('firstName', clientData.firstName);
+      setValue('lastName', clientData.lastName);
+      setValue('email', clientData.email);
+      setValue('cpf', clientData.cpf ? clientData.cpf : '');
+      setValue('phone', clientData.phone ? clientData.phone : '');
+      setValue('zip_code', clientData.zip_code ? clientData.zip_code : '');
+      setValue('district', clientData.district);
+      setValue('city', clientData.city);
+      setValue('uf', clientData.uf);
+      setValue('address', clientData.address);
+      setValue('complement', clientData.complement);
+    }
+
+    // console.log(clientData.zip_code);
+  }, [clientData]);
 
   return (
     <Container component="form" maxWidth="sm" onSubmit={handleSubmit(onSubmit)} disableGutters>
@@ -111,7 +133,13 @@ export default function ClientRegisterForm({ onClose }: any) {
         </Grid>
 
         <Grid item xs={12}>
-          <CPFInput name="cpf" label="CPF" register={register} errors={errors} initialValue="" />
+          <CPFInput
+            name="cpf"
+            label="CPF"
+            register={register}
+            errors={errors}
+            initialValue={clientData.cpf}
+          />
         </Grid>
 
         <Grid item xs={12}>
@@ -120,7 +148,7 @@ export default function ClientRegisterForm({ onClose }: any) {
             label="Phone"
             register={register}
             errors={errors}
-            initialValue=""
+            initialValue={clientData.phone}
           />
         </Grid>
 

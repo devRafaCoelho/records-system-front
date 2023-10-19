@@ -16,6 +16,7 @@ import { api } from '../../services/api';
 import { getTheme } from '../../theme/theme';
 import { logOut } from '../../utils/storage';
 import LinkTabs from './HeaderTabs';
+import useAppContext from '../../hooks/useAppContext';
 
 const pages = ['Home', 'Clients', 'Records'];
 const settings = ['My account', 'Log Out'];
@@ -23,6 +24,7 @@ const paths = ['/home', '/client', '/record'];
 
 function ResponsiveAppBar() {
   const { data } = useQuery('user-data', api.getUser);
+  const { setUserData } = useAppContext();
   const navigate = useNavigate();
   const theme = getTheme();
 
@@ -51,9 +53,13 @@ function ResponsiveAppBar() {
   };
 
   const handleMyAccount = () => {
-    navigate('/account');
+    navigate('/my_account');
     handleCloseUserMenu;
   };
+
+  React.useEffect(() => {
+    setUserData(data);
+  }, [data]);
 
   return (
     <AppBar position="sticky" sx={{ width: '100%', marginBottom: '3vh' }}>

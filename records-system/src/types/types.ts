@@ -73,6 +73,20 @@ export type RegisterClientData = {
   uf: string | undefined;
 };
 
+export type UpdatClientData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  cpf: string;
+  phone: string;
+  address: string | undefined;
+  complement: string | undefined;
+  zip_code: string | undefined;
+  district: string | undefined;
+  city: string | undefined;
+  uf: string | undefined;
+};
+
 export type ListClientsData = {
   page: number;
   totalPages: number;

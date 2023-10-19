@@ -9,7 +9,7 @@ export default function usePaginationClientRecords(id: number, order = 'asc') {
 
   order = queryParams.get('order') || order;
 
-  const { data } = useQuery(['get-client', id, order], () => api.getClient(id, order));
+  const { data } = useQuery(['client-data', id, order], () => api.getClient(id, order));
 
   return { data, order };
 }

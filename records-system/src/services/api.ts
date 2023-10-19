@@ -9,6 +9,7 @@ import {
   NewPasswordData,
   RegisterClientData,
   RegiterUserData,
+  UpdatClientData,
   UpdateUserData,
   UserData
 } from '../types/types';
@@ -124,6 +125,16 @@ async function listClients(
   return response.data;
 }
 
+async function updateClient(id: number, client: UpdatClientData): Promise<ClientData> {
+  const response = await axios.put(`${URL}/client/${id}`, client, {
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
+
+  return response.data;
+}
+
 async function listRecords(
   page: number,
   perPage: number,
@@ -166,6 +177,7 @@ export const api = {
   registerClient,
   getClient,
   listClients,
+  updateClient,
   listRecords,
   getZipCode
 };

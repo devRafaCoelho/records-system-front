@@ -1,13 +1,20 @@
-import EditIcon from '@mui/icons-material/Edit';
-import { Button, Container, Grid, Paper, Typography } from '@mui/material';
+import { Container, Grid, Paper, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
+import UpdateClientModal from '../../components/Modals/UpdateClientModal';
 import TableListClientRecords from '../../components/Tables/TableListClientRecords';
 import usePaginationClientRecords from '../../hooks/usePaginationClientRecords';
+import useAppContext from '../../hooks/useAppContext';
+import { useEffect } from 'react';
 
 export default function Client() {
   const { id } = useParams();
   const { data } = usePaginationClientRecords(Number(id), 'asc');
+  const { setClientData } = useAppContext();
+
+  useEffect(() => {
+    setClientData(data);
+  }, [data]);
 
   return (
     <>
@@ -27,10 +34,11 @@ export default function Client() {
             </Grid>
 
             <Grid item xs={6} textAlign="end">
-              <Button variant="outlined">
+              <UpdateClientModal />
+              {/* <Button variant="outlined">
                 <EditIcon fontSize="small" style={{ marginRight: '0.5vw' }} />
                 Edit Client
-              </Button>
+              </Button> */}
             </Grid>
 
             <Grid item sm={4} xs={6}>

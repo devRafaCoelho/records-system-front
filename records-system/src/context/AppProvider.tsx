@@ -3,6 +3,8 @@ import { createContext, useState } from 'react';
 type AppContextType = {
   userData: any;
   setUserData: (value: any) => void;
+  clientData: any;
+  setClientData: (value: any) => void;
   clientsList: any;
   setClientsList: (value: any) => void;
   valueAccountTab: any;
@@ -18,6 +20,8 @@ type AppContextType = {
 export const AppContext = createContext<AppContextType>({
   userData: {},
   setUserData: () => {},
+  clientData: {},
+  setClientData: () => {},
   clientsList: {},
   setClientsList: () => {},
   valueAccountTab: {},
@@ -37,6 +41,7 @@ export default function AppProvider({ children }: any) {
   const [clientsList, setClientsList] = useState([]);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [clientData, setClientData] = useState('');
 
   return (
     <AppContext.Provider
@@ -52,7 +57,9 @@ export default function AppProvider({ children }: any) {
         open,
         setOpen,
         message,
-        setMessage
+        setMessage,
+        clientData,
+        setClientData
       }}
     >
       {children}

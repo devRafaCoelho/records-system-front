@@ -7,8 +7,8 @@ import DeleteModal from '../../components/Modals/DeleteModal';
 import useAppContext from '../../hooks/useAppContext';
 import { SecondContainer } from '../../styles/styles';
 
-export default function Account() {
-  const { valueAccountTab, open } = useAppContext();
+export default function MyAccount() {
+  const { valueAccountTab } = useAppContext();
 
   return (
     <>
