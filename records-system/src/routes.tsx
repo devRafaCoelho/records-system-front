@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import { useToast } from './hooks/useToast';
-import Account from './pages/Account';
+import Account from './pages/MyAccount';
 import Clients from './pages/Clients';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -13,6 +13,7 @@ import { GlobalStyles } from './styles/GlobalStyles';
 import { getTheme } from './theme/theme';
 import { logOut } from './utils/storage';
 import { checkValidToken } from './utils/token';
+import Client from './pages/Client';
 
 type ProtectedRoutesProps = {
   redirectTo: string;
@@ -39,7 +40,7 @@ export default function MainRoutes() {
       navigate('/login');
       toastfy({
         type: 'warning',
-        message: 'Sessão expirada!'
+        message: 'Session expired!'
       });
     }
   }
@@ -63,8 +64,9 @@ export default function MainRoutes() {
           <Route element={<ProtectedRoutes redirectTo="/login" />}>
             <Route path="/home" element={<Home />} />
             <Route path="/client" element={<Clients />} />
+            <Route path="/client/:id" element={<Client />} />
             <Route path="/record" element={<Records />} />
-            <Route path="/account" element={<Account />} />
+            <Route path="/my_account" element={<Account />} />
           </Route>
         </Routes>
       </ThemeProvider>

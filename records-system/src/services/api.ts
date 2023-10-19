@@ -1,10 +1,15 @@
 import axios from 'axios';
 import {
+  CEPData,
+  ClientData,
   HomeData,
   ListClientsData,
+  ListRecordsData,
   LoginData,
   NewPasswordData,
+  RegisterClientData,
   RegiterUserData,
+  UpdatClientData,
   UpdateUserData,
   UserData
 } from '../types/types';
@@ -76,9 +81,30 @@ async function getHomeData(): Promise<HomeData> {
   return response.data;
 }
 
+async function registerClient(client: RegisterClientData): Promise<ClientData> {
+  const response = await axios.post(`${URL}/client`, client, {
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
+
+  return response.data;
+}
+
+async function getClient(id: number, order: string): Promise<ClientData> {
+  const response = await axios.get(`${URL}/client/${id}`, {
+    params: { order },
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
+
+  return response.data;
+}
+
 async function listClients(
-  page: string,
-  perPage: string,
+  page: number,
+  perPage: number,
   order: string,
   status: string,
   name: string
@@ -99,15 +125,46 @@ async function listClients(
   return response.data;
 }
 
-// async function listClients(): Promise<ListClientsData> {
-//   const response = await axios.get(`${URL}/client`, {
-//     headers: {
-//       Authorization: `Bearer ${getItem('token')}`
-//     }
-//   });
+async function updateClient(id: number, client: UpdatClientData): Promise<ClientData> {
+  const response = await axios.put(`${URL}/client/${id}`, client, {
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
 
-//   return response.data;
-// }
+  return response.data;
+}
+
+async function listRecords(
+  page: number,
+  perPage: number,
+  orderID: string,
+  orderName: string,
+  status: string,
+  name: string
+): Promise<ListRecordsData> {
+  const response = await axios.get(`${URL}/record`, {
+    params: {
+      page,
+      perPage,
+      orderID,
+      orderName,
+      status,
+      name
+    },
+    headers: {
+      Authorization: `Bearer ${getItem('token')}`
+    }
+  });
+
+  return response.data;
+}
+
+async function getZipCode(zipCode: number): Promise<CEPData> {
+  const response = await axios.get(`https://viacep.com.br/ws/${zipCode}/json/`);
+
+  return response.data;
+}
 
 export const api = {
   registerUser,
@@ -117,5 +174,10 @@ export const api = {
   deleteUser,
   newPassword,
   getHomeData,
-  listClients
+  registerClient,
+  getClient,
+  listClients,
+  updateClient,
+  listRecords,
+  getZipCode
 };

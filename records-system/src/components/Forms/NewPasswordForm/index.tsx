@@ -37,7 +37,7 @@ export default function NewPasswordForm() {
       navigate('/home');
       toastfy({
         type: 'success',
-        message: 'Dados alterados com sucesso!'
+        message: 'Data updated successfully!'
       });
     },
     onError: (error: AxiosError<any>) => {
@@ -71,7 +71,7 @@ export default function NewPasswordForm() {
           <Input
             name="password"
             type="password"
-            label="Senha*"
+            label="Password*"
             register={register}
             errors={errors}
           />
@@ -81,7 +81,7 @@ export default function NewPasswordForm() {
           <Input
             name="newPassword"
             type="password"
-            label="Nova Senha*"
+            label="New Password*"
             register={register}
             errors={errors}
           />
@@ -91,7 +91,7 @@ export default function NewPasswordForm() {
           <Input
             name="confirmNewPassword"
             type="password"
-            label="Confirmar Nova Senha*"
+            label="Confirm New Password*"
             register={register}
             errors={errors}
           />
@@ -99,7 +99,7 @@ export default function NewPasswordForm() {
 
         <Grid item xs={12}>
           <LoadButton size="large" loading={loading} variant="contained" type="submit" fullWidth>
-            CONFIRMAR DADOS
+            CONFIRM DATA
           </LoadButton>
         </Grid>
       </Grid>

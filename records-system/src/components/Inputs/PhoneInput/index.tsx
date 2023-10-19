@@ -1,7 +1,6 @@
 import { TextField } from '@mui/material';
 import { useState } from 'react';
 import InputMask from 'react-input-mask';
-import useAppContext from '../../../hooks/useAppContext';
 
 type Props = {
   name: string;
@@ -24,8 +23,7 @@ function CustomInputMaskComponent({ ...props }) {
 }
 
 export default function PhoneInput({ name, label, register, errors, initialValue }: Props) {
-  const { userData } = useAppContext();
-  const [phoneValue, setPhoneValue] = useState(initialValue || userData.phone);
+  const [phoneValue, setPhoneValue] = useState(initialValue);
 
   const handleChange = (event: any) => {
     setPhoneValue(event.target.value);

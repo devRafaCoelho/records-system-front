@@ -1,17 +1,22 @@
 import { Container, Grid, Typography } from '@mui/material';
-import { useQuery } from 'react-query';
 import Header from '../../components/Header';
-import { api } from '../../services/api';
+import BasicTableClient from '../../components/Tables/BasicTableClient';
+import BasicTableRecord from '../../components/Tables/BasicTableRecord';
+import usePaginationClient from '../../hooks/usePaginationClient';
+import usePaginationRecord from '../../hooks/usePaginationRecord';
 import { getTheme } from '../../theme/theme';
 import { Item } from './styles';
-import BasicTableRecord from '../../components/Tables/BasicTableRecord';
-import BasicTableClient from '../../components/Tables/BasicTableClient';
 
 export default function Home() {
-  const { data } = useQuery('home', api.getHomeData);
   const theme = getTheme();
 
-  if (!data) {
+  const { data: payedData } = usePaginationRecord({ status: 'payed' });
+  const { data: expiredData } = usePaginationRecord({ status: 'expired' });
+  const { data: pendingData } = usePaginationRecord({ status: 'pending' });
+  const { data: uptodateData } = usePaginationClient({ status: 'up-to-date' });
+  const { data: defaulterData } = usePaginationClient({ status: 'defaulter' });
+
+  if (!payedData || !expiredData || !pendingData || !uptodateData || !defaulterData) {
     return null;
   }
 
@@ -26,7 +31,7 @@ export default function Home() {
               <Typography variant="h5" mb={2}>
                 Payed Records
               </Typography>
-              <Typography variant="h5">{data?.totalValuePayed}</Typography>
+              <Typography variant="h5">{payedData?.totalValue}</Typography>
             </Item>
           </Grid>
 
@@ -35,7 +40,7 @@ export default function Home() {
               <Typography variant="h5" mb={2}>
                 Expired Records
               </Typography>
-              <Typography variant="h5">{data?.totalValueExpired}</Typography>
+              <Typography variant="h5">{expiredData?.totalValue}</Typography>
             </Item>
           </Grid>
 
@@ -44,7 +49,7 @@ export default function Home() {
               <Typography variant="h5" mb={2}>
                 Pending Records
               </Typography>
-              <Typography variant="h5">{data?.totalValuePending}</Typography>
+              <Typography variant="h5">{pendingData?.totalValue}</Typography>
             </Item>
           </Grid>
         </Grid>
@@ -52,22 +57,24 @@ export default function Home() {
         <Grid container spacing={3} mb={4}>
           <Grid item md={4} sm={6} xs={12}>
             <BasicTableRecord
-              tableData={data?.payedRecords}
-              text="Cobranças Pagas"
+              tableData={payedData}
+              text="Payed Records"
               color={theme.palette.success.main}
             />
           </Grid>
+
           <Grid item md={4} sm={6} xs={12}>
             <BasicTableRecord
-              tableData={data?.expiredRecords}
-              text="Cobranças Vencidas"
+              tableData={expiredData}
+              text="Expired Records"
               color={theme.palette.error.main}
             />
           </Grid>
+
           <Grid item md={4} sm={6} xs={12}>
             <BasicTableRecord
-              tableData={data?.pendingRecords}
-              text="Cobranças Pendentes"
+              tableData={pendingData}
+              text="Pending Records"
               color={theme.palette.warning.main}
             />
           </Grid>
@@ -75,10 +82,10 @@ export default function Home() {
 
         <Grid container spacing={3}>
           <Grid item sm={6} xs={12}>
-            <BasicTableClient text="Clientes Inadimplentes" tableData={data?.defaulterClients} />
+            <BasicTableClient text="Defaulter Clients" tableData={defaulterData} />
           </Grid>
           <Grid item sm={6} xs={12}>
-            <BasicTableClient text="Clientes Em dia" tableData={data?.upToDateClients} />
+            <BasicTableClient text="Up-to-date Clients" tableData={uptodateData} />
           </Grid>
         </Grid>
       </Container>

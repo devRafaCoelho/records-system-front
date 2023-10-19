@@ -3,7 +3,7 @@ import { Container, Grid } from '@mui/material';
 import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import useAppContext from '../../../hooks/useAppContext.ts';
 import { useToast } from '../../../hooks/useToast.ts';
@@ -16,8 +16,10 @@ import Input from '../../Inputs/Input/index.tsx';
 import PhoneInput from '../../Inputs/PhoneInput/index.tsx';
 
 export default function UserUpdateForm() {
+  const { userData } = useAppContext();
+  const { toastfy } = useToast();
   const navigate = useNavigate();
-  const { userData, setUserData } = useAppContext();
+  const queryClient = useQueryClient();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -31,22 +33,20 @@ export default function UserUpdateForm() {
     defaultValues: {
       firstName: '',
       lastName: '',
-      cpf: '' || undefined,
-      phone: '' || undefined,
+      cpf: '',
+      phone: '',
       email: '',
       password: ''
     }
   });
 
-  const { toastfy } = useToast();
-
   const { mutate } = useMutation(api.updateUser, {
-    onSuccess: (data) => {
+    onSuccess: () => {
       navigate('/home');
-      setUserData(data);
+      queryClient.invalidateQueries('user-data');
       toastfy({
         type: 'success',
-        message: 'Dados alterados com sucesso!'
+        message: 'Data updated successfully!'
       });
     },
     onError: (error: AxiosError<any>) => {
@@ -80,8 +80,8 @@ export default function UserUpdateForm() {
       setValue('firstName', userData.firstName);
       setValue('lastName', userData.lastName);
       setValue('email', userData.email);
-      setValue('cpf', userData.cpf ? userData.cpf : '');
-      setValue('phone', userData.phone ? userData.phone : '');
+      setValue('cpf', userData.cpf ?? '');
+      setValue('phone', userData.phone ?? '');
     }
   }, [userData]);
 
@@ -96,7 +96,7 @@ export default function UserUpdateForm() {
           <Input
             name="firstName"
             type="text"
-            label="Primeiro Nome*"
+            label="First Name*"
             register={register}
             errors={errors}
           />
@@ -106,7 +106,7 @@ export default function UserUpdateForm() {
           <Input
             name="lastName"
             type="text"
-            label="Último Nome*"
+            label="Last Name*"
             register={register}
             errors={errors}
           />
@@ -129,7 +129,7 @@ export default function UserUpdateForm() {
         <Grid item xs={12}>
           <PhoneInput
             name="phone"
-            label="Telefone"
+            label="Phone"
             register={register}
             errors={errors}
             initialValue={userData.phone}
@@ -140,7 +140,7 @@ export default function UserUpdateForm() {
           <Input
             name="password"
             type="password"
-            label="Senha*"
+            label="Password*"
             register={register}
             errors={errors}
           />
@@ -148,15 +148,9 @@ export default function UserUpdateForm() {
 
         <Grid item xs={12}>
           <LoadButton size="large" loading={loading} variant="contained" type="submit" fullWidth>
-            CONFIRMAR DADOS
+            CONFIRM DATA
           </LoadButton>
         </Grid>
-
-        {/* <Grid item xs={12}>
-          <Button variant="outlined" size="large" sx={{ marginLeft: 'auto' }}>
-            ENCERRAR CONTA
-          </Button>
-        </Grid> */}
       </Grid>
     </Container>
   );

@@ -56,6 +56,35 @@ export type ClientData = {
   city: string;
   uf: string;
   status: string;
+  Records: RecordData[];
+};
+
+export type RegisterClientData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  cpf: string;
+  phone: string;
+  address: string | undefined;
+  complement: string | undefined;
+  zip_code: string | undefined;
+  district: string | undefined;
+  city: string | undefined;
+  uf: string | undefined;
+};
+
+export type UpdatClientData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  cpf: string;
+  phone: string;
+  address: string | undefined;
+  complement: string | undefined;
+  zip_code: string | undefined;
+  district: string | undefined;
+  city: string | undefined;
+  uf: string | undefined;
 };
 
 export type ListClientsData = {
@@ -74,6 +103,14 @@ export type RecordData = {
   paid_out: boolean;
   status: string;
   clientName: string;
+};
+
+export type ListRecordsData = {
+  page: number;
+  totalPages: number;
+  totalRecords: number;
+  totalValue: string | undefined;
+  records: RecordData[];
 };
 
 export type HomeData = {
@@ -100,4 +137,17 @@ export type HomeData = {
     total: number;
     clients: ClientData[];
   };
+};
+
+export type CEPData = {
+  cep: string;
+  logradouro: string;
+  complemento: string;
+  bairro: string;
+  localidade: string;
+  uf: string;
+  ibge: string;
+  gia: string;
+  ddd: string;
+  siafi: string;
 };

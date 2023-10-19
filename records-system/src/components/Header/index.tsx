@@ -10,22 +10,21 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import useAppContext from '../../hooks/useAppContext';
 import { api } from '../../services/api';
 import { getTheme } from '../../theme/theme';
 import { logOut } from '../../utils/storage';
 import LinkTabs from './HeaderTabs';
+import useAppContext from '../../hooks/useAppContext';
 
 const pages = ['Home', 'Clients', 'Records'];
 const settings = ['My account', 'Log Out'];
-const paths = ['/home', '/clients', '/records'];
+const paths = ['/home', '/client', '/record'];
 
 function ResponsiveAppBar() {
-  const { setUserData } = useAppContext();
   const { data } = useQuery('user-data', api.getUser);
+  const { setUserData } = useAppContext();
   const navigate = useNavigate();
   const theme = getTheme();
 
@@ -54,16 +53,16 @@ function ResponsiveAppBar() {
   };
 
   const handleMyAccount = () => {
-    navigate('/account');
+    navigate('/my_account');
     handleCloseUserMenu;
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     setUserData(data);
   }, [data]);
 
   return (
-    <AppBar position="sticky" sx={{ width: '100%' }}>
+    <AppBar position="sticky" sx={{ width: '100%', marginBottom: '3vh' }}>
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           <Typography

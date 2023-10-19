@@ -11,25 +11,24 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import * as React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import usePaginationClient from '../../../hooks/usePaginationClient';
-import { StyledLink } from '../../../styles/styles';
+import usePaginationRecord from '../../../hooks/usePaginationRecord';
 import { getTheme } from '../../../theme/theme';
-import CustomizedDialogs from '../../Modals/AddRecordModal';
-import FilterMenu from './FilterMenu';
+import DeleteRecordModal from '../../Modals/DeleteRecordModal';
+import UpdateRecordModal from '../../Modals/UpdateRecordModal';
 import PaginationActions from './PaginationActions';
+import usePaginationClientRecords from '../../../hooks/usePaginationClientRecords';
 
-export default function CustomPaginationActionsTable() {
+export default function TableListClientRecords({ data }: any) {
   const theme = getTheme();
   const color = theme.palette.grey[400];
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, page, perPage, order } = usePaginationClient();
-  const [currentOrder, setCurrentOrder] = React.useState(order);
+  const [currentOrder, setCurrentOrder] = React.useState('asc');
 
   const handleNavigate = (params: string) => {
     if (location.search === '') {
-      navigate(`/client${params}`);
+      navigate(`/client/${data.id}${params}`);
     } else {
       const searchParams = new URLSearchParams(location.search);
       const newSearchParams = new URLSearchParams(params);
@@ -38,7 +37,7 @@ export default function CustomPaginationActionsTable() {
         value !== null && value !== '' ? searchParams.set(key, value) : searchParams.delete(key);
       }
 
-      navigate(`/client?${searchParams.toString()}`);
+      navigate(`/client/${data.id}?${searchParams.toString()}`);
     }
   };
 
@@ -74,10 +73,10 @@ export default function CustomPaginationActionsTable() {
             component="div"
             onClick={() => navigate('/client')}
           >
-            CLIENTS
+            RECORDS
           </Typography>
 
-          <FilterMenu />
+          {/* <FilterMenu /> */}
         </Toolbar>
 
         <TableContainer component={Paper}>
@@ -90,48 +89,59 @@ export default function CustomPaginationActionsTable() {
                     onClick={handleSortLabelClick}
                     direction={currentOrder === 'asc' ? 'asc' : 'desc'}
                   >
-                    Name
+                    Record ID
                   </TableSortLabel>
                 </TableCell>
-                <TableCell>CPF</TableCell>
-                <TableCell>E-mail</TableCell>
-                <TableCell>Phone</TableCell>
+                <TableCell>Due Date</TableCell>
+                <TableCell>Value</TableCell>
                 <TableCell>Status</TableCell>
-                <TableCell align="center">Add Record</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell align="center"></TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              {data?.clients.map((row: any) => (
+              {data?.Records.map((row: any) => (
                 <TableRow key={row.id}>
-                  <TableCell sx={{ color }}>
-                    <StyledLink to={`/client/${row.id}`} sx={{ color }}>
-                      {row.firstName + ' ' + row.lastName}
-                    </StyledLink>
-                  </TableCell>
-                  <TableCell sx={{ color }}>{row.cpf}</TableCell>
-                  <TableCell sx={{ color }}>{row.email}</TableCell>
-                  <TableCell sx={{ color }}>{row.phone}</TableCell>
+                  <TableCell sx={{ color }}>{row.id}</TableCell>
+                  <TableCell sx={{ color }}>{row.due_date}</TableCell>
+                  <TableCell sx={{ color }}>{row.value}</TableCell>
                   <TableCell sx={{ color }}>
                     <Chip
                       variant="outlined"
                       label={row.status}
-                      color={row.status === 'up-to-date' ? 'success' : 'error'}
+                      color={
+                        row.status === 'payed'
+                          ? 'success'
+                          : row.status === 'expired'
+                          ? 'error'
+                          : 'warning'
+                      }
                     />
                   </TableCell>
+                  <TableCell sx={{ color }}>{row.description}</TableCell>
                   <TableCell align="center" sx={{ color }}>
-                    <CustomizedDialogs />
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-around'
+                      }}
+                    >
+                      <DeleteRecordModal />
+                      <UpdateRecordModal />
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
 
-            <TableFooter>
+            {/* <TableFooter>
               <TableRow>
                 <TablePagination
-                  rowsPerPageOptions={[5, 10, { label: 'All', value: data?.totalClients || 0 }]}
+                  rowsPerPageOptions={[5, 10, { label: 'All', value: data?.totalRecords || 0 }]}
                   colSpan={6}
-                  count={data?.totalClients || 0}
+                  count={data?.totalRecords || 0}
                   rowsPerPage={perPage}
                   page={page - 1}
                   SelectProps={{
@@ -145,7 +155,7 @@ export default function CustomPaginationActionsTable() {
                   ActionsComponent={PaginationActions}
                 />
               </TableRow>
-            </TableFooter>
+            </TableFooter> */}
           </Table>
         </TableContainer>
       </Paper>

@@ -10,8 +10,9 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../../hooks/useToast';
 import { api } from '../../../services/api';
+import CustomizedDialogs from '../AddRecordModal';
 
-export default function DeleteModal() {
+export default function DeleteRecordModal() {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
   const { toastfy } = useToast();
@@ -24,44 +25,42 @@ export default function DeleteModal() {
     setOpen(false);
   };
 
-  const { mutate } = useMutation(api.deleteUser, {
-    onSuccess: () => {
-      navigate('/userRegister');
-      toastfy({
-        type: 'success',
-        message: 'Sua conta foi encerada.'
-      });
-    }
-  });
+  // const { mutate } = useMutation(api.deleteUser, {
+  //   onSuccess: () => {
+  //     navigate('/userRegister');
+  //     toastfy({
+  //       type: 'success',
+  //       message: 'Sua conta foi encerada.'
+  //     });
+  //   }
+  // });
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        CLOSE ACCOUNT
-      </Button>
+      <DeleteIcon onClick={handleClickOpen} cursor="pointer" />
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{'CLOSE ACCOUNT?'}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{'Delete Record?'}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Do you really want to close your account?
+            Are you sure you want to delete this record?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button
             onClick={() => {
-              mutate();
+              // mutate();
               handleClose();
             }}
             autoFocus
             startIcon={<DeleteIcon />}
           >
-            Close
+            Delete
           </Button>
         </DialogActions>
       </Dialog>
