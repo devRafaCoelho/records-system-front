@@ -94,15 +94,13 @@ export default function ClientUpdateForm({ onClose }: any) {
       setValue('email', clientData.email);
       setValue('cpf', clientData.cpf ? clientData.cpf : '');
       setValue('phone', clientData.phone ? clientData.phone : '');
-      setValue('zip_code', clientData.zip_code ? clientData.zip_code : '');
+      setValue('zip_code', clientData.zip_code);
       setValue('district', clientData.district);
       setValue('city', clientData.city);
       setValue('uf', clientData.uf);
       setValue('address', clientData.address);
       setValue('complement', clientData.complement);
     }
-
-    // console.log(clientData.zip_code);
   }, [clientData]);
 
   return (
